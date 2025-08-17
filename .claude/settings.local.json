@@ -17,7 +17,12 @@
       "WebFetch(domain:www.krds.go.kr)",
       "Bash(start \"http://localhost:3000\" \"E:\\01-project\\250817-ggc-member\\index (1).html\")",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git config:*)",
+      "Bash(gh:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }

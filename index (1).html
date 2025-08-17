@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경기도의회 - 의원 의정활동 관리시스템</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- QRCode.js for Digital ID -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    
+    <!-- FullCalendar for Schedule -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style (1).css">
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Mobile Container -->
+    <div class="mobile-container mx-auto" id="app">
+        
+        <!-- Header -->
+        <header class="gov-header">
+            <div class="flex items-center justify-between">
+                <button id="menuToggle" class="text-xl p-2">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="flex items-center">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='20' fill='%23fff'/%3E%3C/svg%3E" alt="국회 로고" class="w-8 h-8 mr-2">
+                    <h1 class="text-base font-medium">의정활동 관리시스템</h1>
+                </div>
+                <button id="notificationBtn" class="relative text-xl p-2" onclick="window.app.showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Side Menu -->
+        <div id="sideMenu" class="side-menu">
+            <div class="gov-menu-header">
+                <div class="flex items-center space-x-3">
+                    <div class="w-14 h-14 bg-white rounded-full overflow-hidden border-2 border-blue-200">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f3f4f6'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23d1d5db'/%3E%3Cpath d='M20 75 Q20 60 35 60 H65 Q80 60 80 75 V85 Q80 90 75 90 H25 Q20 90 20 85 Z' fill='%23d1d5db'/%3E%3C/svg%3E" alt="임시 익명 프로필" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white">김영수 의원</div>
+                        <div class="text-xs text-blue-100">경기도의회 의원</div>
+                        <div class="text-xs text-blue-100">의원번호: 2024-0815</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="p-4 bg-white">
+                <ul class="space-y-1">
+                    <li><a href="#" data-page="home" class="menu-item active"><i class="fas fa-home"></i> 메인 대시보드</a></li>
+                    <li><a href="#" data-page="digital-id" class="menu-item"><i class="fas fa-id-card"></i> 디지털 신분증</a></li>
+                    <li><a href="#" data-page="info" class="menu-item"><i class="fas fa-user-circle"></i> 의원 정보</a></li>
+                    <li><a href="#" data-page="attendance" class="menu-item"><i class="fas fa-calendar-check"></i> 출석 현황</a></li>
+                    <li><a href="#" data-page="bill" class="menu-item"><i class="fas fa-file-contract"></i> 의안 발의</a></li>
+                    <li><a href="#" data-page="speech" class="menu-item"><i class="fas fa-microphone-alt"></i> 발언 기록</a></li>
+                    <li><a href="#" data-page="budget" class="menu-item"><i class="fas fa-calculator"></i> 예산 심사</a></li>
+                    <li><a href="#" data-page="civil" class="menu-item"><i class="fas fa-envelope-open-text"></i> 민원 처리</a></li>
+                    <li><a href="#" data-page="education" class="menu-item"><i class="fas fa-book-reader"></i> 교육 이수</a></li>
+                    <li><a href="#" data-page="committee-members" class="menu-item"><i class="fas fa-users"></i> 상임위 의원조회</a></li>
+                    <li><a href="#" data-page="staff-directory" class="menu-item"><i class="fas fa-address-book"></i> 직원 조회</a></li>
+                    <li><a href="#" data-page="location-tracking" class="menu-item"><i class="fas fa-map-marker-alt"></i> 위치 기반 활동</a></li>
+                    <li><a href="#" data-page="report" class="menu-item"><i class="fas fa-chart-line"></i> 통계 분석</a></li>
+                    <li><a href="#" data-page="settings" class="menu-item"><i class="fas fa-cog"></i> 환경 설정</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <!-- Dynamic content will be loaded here -->
+        </main>
+        
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" data-page="home" class="bottom-nav-item active">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="#" data-page="digital-id" class="bottom-nav-item">
+                <i class="fas fa-id-card"></i>
+                <span>신분증</span>
+            </a>
+            <a href="#" data-page="attendance" class="bottom-nav-item">
+                <i class="fas fa-check-circle"></i>
+                <span>출석</span>
+            </a>
+            <a href="#" data-page="civil" class="bottom-nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>민원</span>
+            </a>
+            <a href="#" data-page="profile" class="bottom-nav-item">
+                <i class="fas fa-user"></i>
+                <span>내정보</span>
+            </a>
+        </nav>
+        
+    </div>
+    
+    <!-- Page Templates -->
+    <div id="pageTemplates" style="display: none;">
+        
+        <!-- Home Page Template -->
+        <template id="homePage">
+            <div class="page-container">
+                <!-- Government Notice -->
+                <div class="gov-notice">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span>2025년도 제372회 경기도의회(임시회) 진행중</span>
+                </div>
+                
+                <!-- Profile Summary Card -->
+                <div class="gov-card mb-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="gov-title">의원 정보</h3>
+                        <div class="flex gap-2">
+                            <button class="text-green-600 text-sm" onclick="app.showPerformanceReport()">
+                                <i class="fas fa-chart-line mr-1"></i>성과보고서
+                            </button>
+                            <button class="text-blue-600 text-sm" onclick="app.navigateTo('digital-id')">
+                                <i class="fas fa-qrcode mr-1"></i>신분증
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-300">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f3f4f6'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23d1d5db'/%3E%3Cpath d='M20 75 Q20 60 35 60 H65 Q80 60 80 75 V85 Q80 90 75 90 H25 Q20 90 20 85 Z' fill='%23d1d5db'/%3E%3C/svg%3E" alt="임시 익명 프로필" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="text-lg font-bold text-gray-900">김영수 의원</h2>
+                            <p class="text-sm text-gray-600">국민의힘 · 경기 수원시갑</p>
+                            <p class="text-xs text-gray-500 cursor-pointer hover:text-blue-600 transition" onclick="app.showCommitteeInfo()">교육위원회 위원장 (15명 구성) <i class="fas fa-info-circle ml-1"></i></p>
+                            <div class="flex items-center mt-2 space-x-2">
+                                <span class="gov-badge gov-badge-active">재직중</span>
+                                <span class="gov-badge">초선</span>
+                                <span class="gov-badge">당선유효</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="gov-stat-card" onclick="app.navigateTo('attendance')">
+                        <div class="gov-stat-icon bg-blue-100 text-blue-600">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="gov-stat-content">
+                            <div class="gov-stat-value">98.5%</div>
+                            <div class="gov-stat-label">본회의 출석률</div>
+                            <div class="gov-stat-detail">197회/200회</div>
+                        </div>
+                    </div>
+                    
+                    <div class="gov-stat-card" onclick="app.navigateTo('bill')">
+                        <div class="gov-stat-icon bg-green-100 text-green-600">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="gov-stat-content">
+                            <div class="gov-stat-value">32건</div>
+                            <div class="gov-stat-label">발의 법안</div>
+                            <div class="gov-stat-detail">가결 18건</div>
+                        </div>
+                    </div>
+                    
+                    <div class="gov-stat-card" onclick="app.navigateTo('speech')">
+                        <div class="gov-stat-icon bg-purple-100 text-purple-600">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div class="gov-stat-content">
+                            <div class="gov-stat-value">15회</div>
+                            <div class="gov-stat-label">본회의 발언</div>
+                            <div class="gov-stat-detail">5분발언 8회</div>
+                        </div>
+                    </div>
+                    
+                    <div class="gov-stat-card" onclick="app.navigateTo('civil')">
+                        <div class="gov-stat-icon bg-orange-100 text-orange-600">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="gov-stat-content">
+                            <div class="gov-stat-value">248건</div>
+                            <div class="gov-stat-label">민원 처리</div>
+                            <div class="gov-stat-detail">처리율 94%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Chart -->
+                <div class="gov-card mb-4">
+                    <h3 class="gov-title mb-3">월별 활동 현황</h3>
+                    <div class="relative h-48">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Recent Activities -->
+                <div class="gov-card mb-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="gov-title">최근 의정활동</h3>
+                        <button class="text-blue-600 text-sm" onclick="app.showAllActivities()">전체보기</button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="activity-item" onclick="app.showActivityDetail('speech', 1)">
+                            <div class="activity-icon bg-blue-50">
+                                <i class="fas fa-microphone text-blue-600"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">5분 자유발언</div>
+                                <div class="activity-desc">청년 주거안정 특별법안 제정 촉구</div>
+                                <div class="activity-date">2025.07.15 14:30</div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                        
+                        <div class="activity-item" onclick="app.showActivityDetail('bill', 2)">
+                            <div class="activity-icon bg-green-50">
+                                <i class="fas fa-file-signature text-green-600"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">법안 발의</div>
+                                <div class="activity-desc">주택임대차보호법 일부개정법률안</div>
+                                <div class="activity-date">2025.07.12 10:00</div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                        
+                        <div class="activity-item" onclick="app.showActivityDetail('civil', 3)">
+                            <div class="activity-icon bg-orange-50">
+                                <i class="fas fa-envelope-open text-orange-600"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">민원 답변</div>
+                                <div class="activity-desc">강남구 교통체계 개선 요청 건</div>
+                                <div class="activity-date">2025.07.10 16:45</div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Menu -->
+                <div class="gov-card">
+                    <h3 class="gov-title mb-3">바로가기</h3>
+                    <div class="grid grid-cols-3 gap-3 mb-3">
+                        <button class="quick-menu-item" onclick="app.showPressReleases()">
+                            <i class="fas fa-newspaper text-red-600"></i>
+                            <span>보도자료</span>
+                        </button>
+                        <button class="quick-menu-item" onclick="app.showSchedule()">
+                            <i class="fas fa-calendar-alt text-blue-600"></i>
+                            <span>일정표</span>
+                        </button>
+                        <button class="quick-menu-item" onclick="app.showMeetings()">
+                            <i class="fas fa-users text-purple-600"></i>
+                            <span>회의</span>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button class="quick-menu-item" onclick="app.showStatistics()">
+                            <i class="fas fa-chart-bar text-green-600"></i>
+                            <span>통계</span>
+                        </button>
+                        <button class="quick-menu-item" onclick="app.showQuickContacts()">
+                            <i class="fas fa-address-book text-orange-600"></i>
+                            <span>연락처</span>
+                        </button>
+                        <button class="quick-menu-item" onclick="app.showNotifications()">
+                            <i class="fas fa-bell text-yellow-600"></i>
+                            <span>알림</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Digital ID Page Template -->
+        <template id="digitalIdPage">
+            <div class="page-container">
+                <div class="digital-id-card">
+                    <!-- 카드 헤더 -->
+                    <div class="digital-id-header">
+                        <div class="text-lg font-bold">경기도의회</div>
+                        <div class="text-xs opacity-80">Gyeonggi Provincial Council</div>
+                        <div class="text-xs opacity-60 mt-1">도의회의원 디지털 신분증</div>
+                    </div>
+                    
+                    <div class="digital-id-body">
+                        <!-- 프로필 섹션 -->
+                        <div class="flex items-start space-x-4 mb-6">
+                            <div class="id-photo">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 150'%3E%3Crect width='120' height='150' fill='%23f8fafc'/%3E%3Ccircle cx='60' cy='50' r='20' fill='%23cbd5e0'/%3E%3Cpath d='M25 110 Q25 90 45 90 H75 Q95 90 95 110 V130 H25 Z' fill='%23cbd5e0'/%3E%3C/svg%3E" alt="의원 사진">
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <div class="id-field">
+                                    <span class="id-label">성명</span>
+                                    <span class="id-value">김영수</span>
+                                </div>
+                                <div class="id-field">
+                                    <span class="id-label">의원번호</span>
+                                    <span class="id-value">2024-0815</span>
+                                </div>
+                                <div class="id-field">
+                                    <span class="id-label">소속정당</span>
+                                    <span class="id-value">국민의힘</span>
+                                </div>
+                                <div class="id-field">
+                                    <span class="id-label">지역구</span>
+                                    <span class="id-value">경기 수원시갑</span>
+                                </div>
+                                <div class="id-field">
+                                    <span class="id-label">당선회수</span>
+                                    <span class="id-value">초선(제11기)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 위원회 정보 -->
+                        <div class="id-committees mb-6">
+                            <div class="id-label mb-3">소속 위원회</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="committee-badge">교육위원회(위원장)</span>
+                                <span class="committee-badge">예산결산특별위원회</span>
+                            </div>
+                        </div>
+                        
+                        <!-- QR 코드 섹션 -->
+                        <div class="qr-section">
+                            <div class="text-center mb-3">
+                                <div class="text-sm font-semibold text-gray-800">디지털 인증</div>
+                                <div class="text-xs text-gray-600">QR 코드로 신원 확인</div>
+                            </div>
+                            
+                            <div id="qrcode" class="qr-container"></div>
+                            
+                            <div class="text-center mt-3">
+                                <div class="text-xs text-blue-600 font-semibold">
+                                    유효기간: 2025.05.30 ~ 2029.05.29
+                                </div>
+                            </div>
+                            
+                            <!-- 실시간 인증 상태 -->
+                            <div class="digital-auth-status">
+                                <div class="flex items-center justify-center mb-2">
+                                    <div class="auth-indicator"></div>
+                                    <span class="text-xs font-semibold text-green-700 ml-2">실시간 인증 활성</span>
+                                </div>
+                                <div class="text-xs text-gray-700 text-center">
+                                    현재 시간: <span id="current-time" class="font-mono font-bold text-blue-600"></span>
+                                </div>
+                                <div class="text-xs text-gray-500 text-center mt-1">
+                                    마지막 인증: <span id="last-auth" class="font-mono text-green-600">방금 전</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 보안 정보 -->
+                        <div class="id-security">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                                    <span class="text-sm font-medium">블록체인 보안</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-1"></i>
+                                    <span class="text-xs text-green-400 font-semibold">검증 완료</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 액션 버튼 -->
+                    <div class="digital-id-footer">
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="btn-primary" onclick="window.app.verifyIdentity()">
+                                <i class="fas fa-fingerprint mr-2"></i>
+                                <span>생체 인증</span>
+                            </button>
+                            <button class="btn-secondary" onclick="window.app.shareDigitalId()">
+                                <i class="fas fa-share-alt mr-2"></i>
+                                <span>신분증 공유</span>
+                            </button>
+                        </div>
+                        <button class="w-full mt-3 py-2 text-center text-white text-sm opacity-75 hover:opacity-100 transition-opacity" onclick="window.app.navigateTo('home')">
+                            <i class="fas fa-home mr-2"></i>홈으로 돌아가기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Attendance Page Template -->
+        <template id="attendancePage">
+            <div class="page-container">
+                <div class="gov-card mb-4">
+                    <h3 class="gov-title mb-4">출석 현황</h3>
+                    
+                    <div class="attendance-summary">
+                        <div class="attendance-stat">
+                            <div class="attendance-label">본회의</div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 98.5%"></div>
+                                </div>
+                                <span class="progress-text">98.5%</span>
+                            </div>
+                            <div class="attendance-detail">출석 197회 / 전체 200회</div>
+                        </div>
+                        
+                        <div class="attendance-stat">
+                            <div class="attendance-label">상임위원회</div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 96%"></div>
+                                </div>
+                                <span class="progress-text">96%</span>
+                            </div>
+                            <div class="attendance-detail">출석 48회 / 전체 50회</div>
+                        </div>
+                        
+                        <div class="attendance-stat">
+                            <div class="attendance-label">특별위원회</div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-text">100%</span>
+                            </div>
+                            <div class="attendance-detail">출석 15회 / 전체 15회</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gov-card">
+                    <h4 class="font-semibold mb-3">최근 출석 내역</h4>
+                    <div class="attendance-list">
+                        <div class="attendance-item" onclick="window.app.showAttendanceDetail('2024.01.15', '본회의', '제398회 국회(임시회) 제3차')" style="cursor: pointer;">
+                            <div class="attendance-date">2024.01.15</div>
+                            <div class="attendance-info">
+                                <div class="attendance-type">본회의</div>
+                                <div class="attendance-desc">제398회 국회(임시회) 제3차</div>
+                            </div>
+                            <div class="attendance-status status-present">출석</div>
+                            <i class="fas fa-chevron-right text-gray-400 ml-2"></i>
+                        </div>
+                        <div class="attendance-item" onclick="window.app.showAttendanceDetail('2024.01.14', '교육위원회', '법안심사소위원회')" style="cursor: pointer;">
+                            <div class="attendance-date">2024.01.14</div>
+                            <div class="attendance-info">
+                                <div class="attendance-type">교육위원회</div>
+                                <div class="attendance-desc">법안심사소위원회</div>
+                            </div>
+                            <div class="attendance-status status-present">출석</div>
+                            <i class="fas fa-chevron-right text-gray-400 ml-2"></i>
+                        </div>
+                        <div class="attendance-item" onclick="window.app.showAttendanceDetail('2024.01.12', '본회의', '제398회 국회(임시회) 제2차')" style="cursor: pointer;">
+                            <div class="attendance-date">2024.01.12</div>
+                            <div class="attendance-info">
+                                <div class="attendance-type">본회의</div>
+                                <div class="attendance-desc">제398회 국회(임시회) 제2차</div>
+                            </div>
+                            <div class="attendance-status status-absent">청가</div>
+                            <i class="fas fa-chevron-right text-gray-400 ml-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/app-core.js"></script>
+    <script src="js/app-modals.js"></script>
+    <script src="js/app-calendar.js"></script>
+    <script src="js/app-location-enhanced.js"></script>
+    <script src="js/app-pages.js"></script>
+    <script src="js/app-civil.js"></script>
+    <script src="js/contacts-data.js"></script>
+    <script src="js/app-contacts-new.js"></script>
+</body>
+</html>

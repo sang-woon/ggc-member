@@ -1,0 +1,501 @@
+/* Complete Calendar Fix - 2025.01.18 */
+
+/* 전체 리셋 및 기본 설정 */
+* {
+    box-sizing: border-box !important;
+}
+
+/* 페이지 컨테이너 */
+.page-container {
+    width: 100%;
+    padding: 16px;
+    max-width: 430px;
+    margin: 0 auto;
+}
+
+/* 정부 카드 스타일 */
+.gov-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.gov-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+/* 출석 요약 섹션 */
+.attendance-summary {
+    margin-bottom: 20px;
+}
+
+.attendance-stat {
+    margin-bottom: 16px;
+}
+
+.attendance-stat:last-child {
+    margin-bottom: 0;
+}
+
+.attendance-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.attendance-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 24px;
+    background: #f3f4f6;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #003d7a, #0056b3);
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #003d7a;
+    min-width: 45px;
+    text-align: right;
+}
+
+.attendance-detail {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* 캘린더 전체 래퍼 */
+.attendance-calendar-wrapper {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 캘린더 헤더 */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #003d7a, #0056b3);
+    color: white;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn:active {
+    background: rgba(255,255,255,0.3);
+}
+
+.calendar-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.today-btn {
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 16px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.today-btn:active {
+    background: rgba(255,255,255,0.3);
+}
+
+/* 뷰 전환 버튼 */
+.view-switcher {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.view-btn {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.view-btn.active {
+    color: #003d7a;
+    font-weight: 600;
+}
+
+.view-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #003d7a;
+}
+
+/* 캘린더 그리드 */
+.calendar-grid {
+    padding: 8px;
+}
+
+.calendar-grid.month-view {
+    width: 100%;
+}
+
+/* 요일 헤더 */
+.weekday-header {
+    display: flex;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.weekday {
+    flex: 1;
+    text-align: center;
+    padding: 4px 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.weekday.sun {
+    color: #ef4444;
+}
+
+.weekday.sat {
+    color: #3b82f6;
+}
+
+/* 날짜 그리드 - 테이블 방식으로 변경 */
+.dates-grid {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 1px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.dates-week {
+    display: table-row;
+}
+
+.calendar-date {
+    display: table-cell;
+    width: 14.285%;
+    height: 36px;
+    padding: 2px;
+    background: white;
+    position: relative;
+    cursor: pointer;
+    vertical-align: top;
+}
+
+.calendar-date:active {
+    background: #f0f9ff;
+}
+
+.calendar-date.other-month {
+    background: #f9fafb;
+}
+
+.calendar-date.other-month .date-number {
+    color: #d1d5db;
+}
+
+.calendar-date.today {
+    background: #eff6ff;
+}
+
+.calendar-date.today .date-number {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.calendar-date.sunday .date-number {
+    color: #ef4444;
+}
+
+.calendar-date.saturday .date-number {
+    color: #3b82f6;
+}
+
+.date-number {
+    font-size: 11px;
+    font-weight: 500;
+    color: #1f2937;
+    padding: 1px 2px;
+}
+
+.attendance-indicator {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    color: white;
+}
+
+.attendance-indicator.status-present {
+    background: #10b981;
+}
+
+.attendance-indicator.status-excused {
+    background: #3b82f6;
+}
+
+.attendance-indicator.status-absent {
+    background: #ef4444;
+}
+
+.attendance-indicator.status-scheduled {
+    background: #8b5cf6;
+}
+
+/* 통계 카드 */
+.attendance-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-top: 1px solid #e5e7eb;
+}
+
+.stat-card {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.stat-icon.present {
+    background: #10b981;
+}
+
+.stat-icon.excused {
+    background: #3b82f6;
+}
+
+.stat-icon.absent {
+    background: #ef4444;
+}
+
+.stat-icon.rate {
+    background: #8b5cf6;
+}
+
+.stat-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 2px;
+}
+
+/* 최근 출석 내역 */
+.attendance-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.attendance-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.attendance-item:last-child {
+    border-bottom: none;
+}
+
+.attendance-item:active {
+    background: #f9fafb;
+}
+
+.attendance-date {
+    font-size: 12px;
+    color: #6b7280;
+    min-width: 65px;
+    flex-shrink: 0;
+}
+
+.attendance-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.attendance-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attendance-desc {
+    font-size: 11px;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.attendance-status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.status-present {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.status-excused {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.status-absent {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* 화면 크기별 조정 */
+@media (max-width: 380px) {
+    .page-container {
+        padding: 12px;
+    }
+    
+    .gov-card {
+        padding: 12px;
+    }
+    
+    .calendar-header {
+        padding: 10px;
+    }
+    
+    .calendar-title {
+        font-size: 14px;
+    }
+    
+    .nav-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .calendar-date {
+        height: 32px;
+    }
+    
+    .date-number {
+        font-size: 10px;
+    }
+    
+    .attendance-indicator {
+        width: 12px;
+        height: 12px;
+        font-size: 6px;
+    }
+}
+
+/* 모든 버튼 터치 최적화 */
+button {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
+}

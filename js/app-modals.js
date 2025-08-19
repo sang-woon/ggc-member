@@ -2,15 +2,19 @@
 Object.assign(window.app, {
     // Modal System
     showModal: function(modalId, options = {}) {
+        console.log('🔵 showModal 호출됨:', modalId, options);
+        
         // 기존 모달이 있으면 제거
         this.closeModal();
         
         const modal = document.createElement('div');
         modal.id = 'dynamic-modal';
         modal.className = `fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${options.modalClass || ''}`;
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;';
         
         const modalContent = document.createElement('div');
         modalContent.className = 'bg-white rounded-lg w-11/12 max-w-md max-h-[90vh] overflow-hidden';
+        modalContent.style.cssText = 'background: white; border-radius: 8px; width: 90%; max-width: 500px; max-height: 90vh; overflow: hidden;';
         
         let html = '';
         
@@ -58,7 +62,15 @@ Object.assign(window.app, {
         
         modalContent.innerHTML = html;
         modal.appendChild(modalContent);
+        
+        console.log('🔵 모달 DOM 추가 전 - body 존재:', !!document.body);
+        console.log('🔵 모달 엘리먼트:', modal);
+        
         document.body.appendChild(modal);
+        
+        console.log('🔵 모달 DOM 추가 완료');
+        console.log('🔵 모달이 DOM에 존재:', !!document.getElementById('dynamic-modal'));
+        console.log('🔵 모달 표시 여부:', window.getComputedStyle(modal).display);
         
         // 모달 외부 클릭 시 닫기
         modal.addEventListener('click', (e) => {
@@ -78,6 +90,8 @@ Object.assign(window.app, {
         
         // 바디 스크롤 방지
         document.body.style.overflow = 'hidden';
+        
+        console.log('🔵 showModal 완료');
     },
     
     closeModal: function() {
@@ -873,6 +887,308 @@ Object.assign(window.app, {
         });
     },
 
+    // 모든 활동 보기
+    showAllActivities: function() {
+        this.showModal('allActivities', {
+            title: '전체 의정활동',
+            content: `
+                <div class="space-y-4">
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold mb-3">최근 활동 내역</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-microphone text-blue-600 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">본회의 5분 발언</div>
+                                    <div class="text-sm text-gray-600">2025.01.15 - 교육 정책 개선 제안</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-file-alt text-green-600 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">조례안 발의</div>
+                                    <div class="text-sm text-gray-600">2025.01.10 - 청년 주거 지원 조례</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-users text-purple-600 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">위원회 회의</div>
+                                    <div class="text-sm text-gray-600">2025.01.08 - 교육위원회 정기회의</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+
+    // 보도자료 표시
+    showPressReleases: function() {
+        this.showModal('pressReleases', {
+            title: '보도자료',
+            content: `
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="font-medium mb-2">김영수 의원, 교육 정책 개선안 발표</div>
+                        <div class="text-sm text-gray-600 mb-2">2025.01.15</div>
+                        <div class="text-sm text-gray-700">경기도의회 김영수 의원이 학생 중심의 교육 환경 개선을 위한 정책 제안서를 발표했다...</div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="font-medium mb-2">청년 주거 지원 조례안 통과</div>
+                        <div class="text-sm text-gray-600 mb-2">2025.01.10</div>
+                        <div class="text-sm text-gray-700">김영수 의원이 대표 발의한 청년 주거 지원 조례안이 본회의를 통과했다...</div>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+
+    // 일정표 표시
+    showSchedule: function() {
+        this.showModal('schedule', {
+            title: '의정활동 일정',
+            content: `
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="font-bold text-blue-800 mb-2">오늘의 일정</div>
+                        <div class="space-y-2">
+                            <div class="flex items-center text-sm">
+                                <span class="text-gray-600 mr-2">10:00</span>
+                                <span>교육위원회 정기회의</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="text-gray-600 mr-2">14:00</span>
+                                <span>본회의</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="text-gray-600 mr-2">16:00</span>
+                                <span>지역구 민원 상담</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+
+    // 회의 정보 표시
+    showMeetings: function() {
+        this.showModal('meetings', {
+            title: '회의 일정',
+            content: `
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="font-medium mb-2">교육위원회 정기회의</div>
+                        <div class="text-sm text-gray-600">
+                            <div>일시: 2025.01.18 10:00</div>
+                            <div>장소: 교육위원회 회의실</div>
+                            <div>안건: 교육예산 심의</div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="font-medium mb-2">본회의</div>
+                        <div class="text-sm text-gray-600">
+                            <div>일시: 2025.01.18 14:00</div>
+                            <div>장소: 본회의장</div>
+                            <div>안건: 조례안 심의</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+
+    // 통계 표시
+    showStatistics: function() {
+        this.showModal('statistics', {
+            title: '의정활동 통계',
+            content: `
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-3 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600">98.5%</div>
+                            <div class="text-sm text-gray-600">출석률</div>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-green-600">32건</div>
+                            <div class="text-sm text-gray-600">법안 발의</div>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-purple-600">248건</div>
+                            <div class="text-sm text-gray-600">민원 처리</div>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-orange-600">15회</div>
+                            <div class="text-sm text-gray-600">발언</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+
+    // Quick Menu (Floating Action Button)
+    showQuickMenu: function() {
+        this.showModal('quickMenu', {
+            title: '빠른 작업',
+            content: `
+                <div class="grid grid-cols-3 gap-3">
+                    <button class="p-4 bg-blue-50 rounded-lg text-center" onclick="app.navigateTo('bill'); app.closeModal();">
+                        <i class="fas fa-plus-circle text-2xl text-blue-600 mb-2"></i>
+                        <div class="text-xs">법안 작성</div>
+                    </button>
+                    <button class="p-4 bg-green-50 rounded-lg text-center" onclick="app.navigateTo('civil'); app.closeModal();">
+                        <i class="fas fa-reply text-2xl text-green-600 mb-2"></i>
+                        <div class="text-xs">민원 답변</div>
+                    </button>
+                    <button class="p-4 bg-purple-50 rounded-lg text-center" onclick="app.showSchedule(); app.closeModal();">
+                        <i class="fas fa-calendar-plus text-2xl text-purple-600 mb-2"></i>
+                        <div class="text-xs">일정 추가</div>
+                    </button>
+                    <button class="p-4 bg-yellow-50 rounded-lg text-center" onclick="app.navigateTo('speech'); app.closeModal();">
+                        <i class="fas fa-microphone text-2xl text-yellow-600 mb-2"></i>
+                        <div class="text-xs">발언 준비</div>
+                    </button>
+                    <button class="p-4 bg-red-50 rounded-lg text-center" onclick="app.showNotifications(); app.closeModal();">
+                        <i class="fas fa-bell text-2xl text-red-600 mb-2"></i>
+                        <div class="text-xs">긴급 알림</div>
+                    </button>
+                    <button class="p-4 bg-gray-50 rounded-lg text-center" onclick="app.navigateTo('report'); app.closeModal();">
+                        <i class="fas fa-file-export text-2xl text-gray-600 mb-2"></i>
+                        <div class="text-xs">보고서</div>
+                    </button>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+    
+    // 빠른 연락처
+    showQuickContacts: function() {
+        this.showModal('quickContacts', {
+            title: '빠른 연락처',
+            content: `
+                <div class="space-y-3">
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <div class="font-medium">의원실</div>
+                        <div class="text-sm text-gray-600">031-8008-7001</div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <div class="font-medium">교육위원회</div>
+                        <div class="text-sm text-gray-600">031-8008-7200</div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <div class="font-medium">비서실</div>
+                        <div class="text-sm text-gray-600">031-8008-7002</div>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'btn-secondary',
+                    onclick: () => this.closeModal()
+                }
+            ]
+        });
+    },
+
+    // 활동 상세 정보
+    showActivityDetail: function(type, id) {
+        const activities = {
+            speech: {
+                1: {
+                    title: '교육 정책 개선 제안 5분 발언',
+                    date: '2025.01.15',
+                    content: '경기도 교육 정책의 개선 방향에 대한 제안',
+                    details: '학생 중심의 교육 환경 조성과 교사 처우 개선 방안 제시'
+                }
+            },
+            bill: {
+                2: {
+                    title: '청년 주거 지원 조례안',
+                    date: '2025.01.10',
+                    content: '청년층의 주거 안정을 위한 지원 조례',
+                    details: '청년 월세 지원 및 전세 대출 이자 지원 내용 포함'
+                }
+            },
+            civil: {
+                3: {
+                    title: '교통 불편 민원 해결',
+                    date: '2025.01.05',
+                    content: '수원시갑 지역 버스 노선 개선',
+                    details: '주민 요청에 따른 버스 노선 신설 및 배차 간격 단축'
+                }
+            }
+        };
+
+        const activity = activities[type]?.[id];
+        if (activity) {
+            this.showModal('activityDetail', {
+                title: activity.title,
+                content: `
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-600 mb-2">${activity.date}</div>
+                            <div class="font-medium mb-2">${activity.content}</div>
+                            <div class="text-sm text-gray-700">${activity.details}</div>
+                        </div>
+                    </div>
+                `,
+                buttons: [
+                    {
+                        text: '닫기',
+                        class: 'btn-secondary',
+                        onclick: () => this.closeModal()
+                    }
+                ]
+            });
+        }
+    },
+
     // 위원회 정보 표시
     showCommitteeInfo: function() {
         this.showModal('committeeInfo', {
@@ -915,55 +1231,7 @@ Object.assign(window.app, {
         });
     },
 
-    // 전체 활동 보기
-    showAllActivities: function() {
-        this.showNotification('전체 활동 내역을 조회합니다.');
-    },
-
-    // 활동 상세보기
-    showActivityDetail: function(type, id) {
-        const activities = {
-            'speech': {
-                title: '5분 자유발언',
-                content: '청년 주거안정 특별법안 제정 촉구',
-                date: '2025.07.15 14:30'
-            },
-            'bill': {
-                title: '법안 발의',
-                content: '주택임대차보호법 일부개정법률안',
-                date: '2025.07.12 10:00'
-            },
-            'civil': {
-                title: '민원 답변',
-                content: '강남구 교통체계 개선 요청 건',
-                date: '2025.07.10 16:45'
-            }
-        };
-
-        const activity = activities[type];
-        if (activity) {
-            this.showModal('activityDetail', {
-                title: activity.title,
-                content: `
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="font-bold mb-2">${activity.content}</div>
-                            <div class="text-sm text-gray-600">${activity.date}</div>
-                        </div>
-                        <div class="text-sm text-gray-700">
-                            활동 상세 내용이 여기에 표시됩니다.
-                        </div>
-                    </div>
-                `,
-                showCancel: false
-            });
-        }
-    },
-
-    // 보도자료 보기
-    showPressReleases: function() {
-        this.showNotification('보도자료 목록을 조회합니다.');
-    },
+    // (중복 함수 제거 - 위에 이미 정의됨)
 
     // 회의 보기
     showMeetings: function() {

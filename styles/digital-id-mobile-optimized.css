@@ -1,0 +1,435 @@
+/* 디지털 신분증 모바일 최적화 디자인 */
+
+/* 메인 컨테이너 */
+.digital-id-mobile-container {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 16px;
+    background: #f5f5f5;
+    min-height: 100vh;
+}
+
+/* 개선된 신분증 카드 레이아웃 */
+.digital-id-card-optimized {
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 100%);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 61, 122, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 헤더 영역 */
+.id-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.id-card-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.id-card-logo img {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.id-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.id-card-subtitle {
+    font-size: 11px;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+/* 사진 영역 - 모바일 최적화 */
+.id-photo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.id-photo-wrapper {
+    width: 120px;
+    height: 150px;
+    background: white;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.id-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.id-photo-update-btn {
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    width: 36px;
+    height: 36px;
+    background: white;
+    color: #003d7a;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.id-photo-update-btn:hover {
+    transform: scale(1.1);
+}
+
+.id-photo-update-btn i {
+    font-size: 14px;
+}
+
+/* 의원 정보 영역 - 중앙 정렬 */
+.id-member-info {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.id-member-name {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.id-member-number {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 4px;
+}
+
+.id-member-party {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+/* 상세 정보 그리드 - 모바일 최적화 */
+.id-details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.id-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.id-detail-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.id-detail-icon i {
+    font-size: 14px;
+    color: white;
+}
+
+.id-detail-text {
+    flex: 1;
+    text-align: left;
+}
+
+.id-detail-label {
+    font-size: 11px;
+    opacity: 0.8;
+    margin-bottom: 2px;
+}
+
+.id-detail-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* QR 코드 섹션 - 하단 배치 */
+.id-qr-section {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.id-qr-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.id-qr-code-wrapper {
+    flex-shrink: 0;
+    padding: 12px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.id-qr-code {
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+
+.id-qr-info {
+    flex: 1;
+}
+
+.id-qr-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.id-qr-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.id-qr-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.id-qr-status-text {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* 액션 버튼 그룹 */
+.id-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.id-action-btn {
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.id-action-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.id-action-btn i {
+    font-size: 16px;
+}
+
+/* 보안 칩 디자인 */
+.id-security-chip {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 30px;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.id-security-chip::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    border-radius: 6px;
+}
+
+/* NFC 인디케이터 */
+.id-nfc-indicator {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.id-nfc-indicator i {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 홀로그램 효과 */
+.id-hologram-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.05) 75%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    background-size: 40px 40px;
+    animation: shimmer 3s infinite linear;
+    pointer-events: none;
+    border-radius: 20px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 380px) {
+    .digital-id-mobile-container {
+        padding: 12px;
+    }
+    
+    .digital-id-card-optimized {
+        padding: 16px;
+    }
+    
+    .id-card-title {
+        font-size: 16px;
+    }
+    
+    .id-photo-wrapper {
+        width: 100px;
+        height: 125px;
+    }
+    
+    .id-member-name {
+        font-size: 24px;
+    }
+    
+    .id-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .digital-id-mobile-container {
+        background: #1a1a1a;
+    }
+    
+    .digital-id-card-optimized {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* 접근성 개선 */
+.id-action-btn:focus,
+.id-photo-update-btn:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* 터치 영역 최적화 */
+.id-action-btn,
+.id-photo-update-btn {
+    min-height: 44px;
+    min-width: 44px;
+}

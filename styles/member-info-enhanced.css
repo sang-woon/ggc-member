@@ -1,0 +1,474 @@
+/* 메인화면 의원정보 디자인 개선 */
+
+/* 의원정보 카드 기본 스타일 */
+.member-info-enhanced {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* 헤더 영역 개선 */
+.member-header-enhanced {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.member-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.member-title-accent {
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 100%);
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.member-title-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: -0.3px;
+}
+
+/* 액션 버튼 개선 */
+.member-action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.member-btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: white;
+    color: #003d7a;
+    border: none;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.member-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: #f8f9fa;
+}
+
+.member-btn-primary i {
+    font-size: 12px;
+}
+
+.member-btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.member-btn-secondary:hover {
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-2px);
+}
+
+.member-btn-secondary i {
+    font-size: 12px;
+}
+
+/* 프로필 섹션 개선 */
+.member-profile-enhanced {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 사진 컨테이너 개선 */
+.member-photo-enhanced {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.member-photo-frame {
+    width: 88px;
+    height: 88px;
+    padding: 3px;
+    background: linear-gradient(135deg, white 0%, rgba(255,255,255,0.8) 100%);
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.member-photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.member-photo-frame:hover::before {
+    transform: translateX(100%);
+}
+
+.member-photo-frame:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.member-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.member-status-indicator {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.4);
+}
+
+.member-status-indicator i {
+    font-size: 11px;
+    color: white;
+}
+
+/* 정보 섹션 개선 */
+.member-info-section {
+    flex: 1;
+    min-width: 0;
+}
+
+.member-name-section {
+    margin-bottom: 12px;
+}
+
+.member-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: -0.5px;
+}
+
+.member-details-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.member-party-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.member-party-badge i {
+    font-size: 11px;
+    color: rgba(255,255,255,0.9);
+}
+
+.member-party-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+.member-detail-separator {
+    width: 4px;
+    height: 4px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+}
+
+.member-district {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+}
+
+/* 위원회 정보 개선 */
+.member-committee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.member-committee-icon {
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.member-committee-icon i {
+    font-size: 10px;
+    color: white;
+}
+
+.member-committee-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
+}
+
+.member-committee-count {
+    padding: 2px 6px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+}
+
+/* 상태 뱃지 개선 */
+.member-status-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.status-badge-active {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+}
+
+.status-badge-active .status-dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-badge-info {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+}
+
+.status-badge:hover {
+    transform: translateY(-1px);
+}
+
+/* 통계 섹션 개선 */
+.member-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    position: relative;
+    z-index: 1;
+}
+
+.member-stat-item {
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 12px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.member-stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.05);
+    transform: scale(0);
+    border-radius: 12px;
+    transition: transform 0.3s;
+}
+
+.member-stat-item:hover::before {
+    transform: scale(1);
+}
+
+.member-stat-item:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+
+.member-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.member-stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    letter-spacing: -0.2px;
+}
+
+/* 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+}
+
+/* 아이콘 크기 통일 */
+.member-info-enhanced i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 호버 효과 개선 */
+.member-info-enhanced button,
+.member-info-enhanced [onclick] {
+    position: relative;
+    overflow: hidden;
+}
+
+.member-info-enhanced button::after,
+.member-info-enhanced [onclick]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+}
+
+.member-info-enhanced button:active::after,
+.member-info-enhanced [onclick]:active::after {
+    width: 200px;
+    height: 200px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 430px) {
+    .member-info-enhanced {
+        padding: 20px;
+    }
+    
+    .member-title-text {
+        font-size: 16px;
+    }
+    
+    .member-photo-frame {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .member-name {
+        font-size: 20px;
+    }
+    
+    .member-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+    
+    .member-stat-value {
+        font-size: 18px;
+    }
+    
+    .member-stat-label {
+        font-size: 10px;
+    }
+}
+
+/* 접근성 개선 */
+.member-info-enhanced button:focus,
+.member-info-enhanced [onclick]:focus {
+    outline: 2px solid rgba(255,255,255,0.5);
+    outline-offset: 2px;
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .member-info-enhanced {
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+}

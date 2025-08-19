@@ -1,0 +1,891 @@
+/* ===================================================
+   경기도의회 - 주요 페이지 디자인 개선
+   홈, 신분증, 출석, 민원, 내정보
+   =================================================== */
+
+/* ===================================================
+   1. 홈 페이지 개선
+   =================================================== */
+
+/* 프로필 카드 - 프리미엄 디자인 */
+.home-profile-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 61, 122, 0.08);
+    border: 1px solid rgba(0, 61, 122, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(0, 86, 179, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 61, 122, 0.2);
+}
+
+.profile-info h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+/* 통계 그리드 - 카드 스타일 개선 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-card-enhanced {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.stat-card-enhanced:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: #003d7a;
+}
+
+.stat-card-enhanced::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
+.stat-card-enhanced.attendance::after {
+    --color-primary: #3b82f6;
+    --color-secondary: #60a5fa;
+}
+
+.stat-card-enhanced.bill::after {
+    --color-primary: #10b981;
+    --color-secondary: #34d399;
+}
+
+.stat-card-enhanced.speech::after {
+    --color-primary: #8b5cf6;
+    --color-secondary: #a78bfa;
+}
+
+.stat-card-enhanced.civil::after {
+    --color-primary: #f59e0b;
+    --color-secondary: #fbbf24;
+}
+
+.stat-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 24px;
+}
+
+.stat-icon-box.blue {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    color: #3b82f6;
+}
+
+.stat-icon-box.green {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    color: #10b981;
+}
+
+.stat-icon-box.purple {
+    background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
+    color: #8b5cf6;
+}
+
+.stat-icon-box.orange {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    color: #f59e0b;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.stat-sublabel {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+/* 활동 차트 카드 */
+.chart-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.chart-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+/* 최근 활동 리스트 */
+.recent-activities {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.activity-item-enhanced {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.2s;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.activity-item-enhanced:hover {
+    background: #f9fafb;
+    transform: translateX(4px);
+}
+
+.activity-timeline {
+    width: 2px;
+    height: 40px;
+    background: #e5e7eb;
+    margin: 0 19px;
+}
+
+.activity-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #3b82f6;
+    margin: 15px;
+}
+
+/* ===================================================
+   2. 디지털 신분증 페이지 개선
+   =================================================== */
+
+.digital-id-container {
+    padding: 20px 16px;
+    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+    min-height: calc(100vh - 64px);
+}
+
+.digital-id-premium {
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 50%, #003d7a 100%);
+    border-radius: 20px;
+    padding: 24px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 61, 122, 0.3);
+}
+
+/* 홀로그램 효과 */
+.digital-id-premium::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    animation: hologram 3s infinite;
+}
+
+@keyframes hologram {
+    0% { transform: translateX(-100%) translateY(-100%); }
+    100% { transform: translateX(100%) translateY(100%); }
+}
+
+.id-header-premium {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.id-header-premium h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.id-header-premium p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.id-body-premium {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.id-photo-premium {
+    width: 100px;
+    height: 130px;
+    background: white;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.id-photo-premium img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.id-details {
+    flex: 1;
+}
+
+.id-field-premium {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.id-field-premium:last-child {
+    border-bottom: none;
+}
+
+.id-label-premium {
+    font-size: 12px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.id-value-premium {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* QR 코드 섹션 개선 */
+.qr-section-premium {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+}
+
+.qr-code-container {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 12px;
+    padding: 8px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.verification-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.verification-status i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ===================================================
+   3. 출석 페이지 개선
+   =================================================== */
+
+.attendance-container {
+    padding: 16px;
+}
+
+.attendance-summary-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.attendance-stats {
+    display: grid;
+    gap: 16px;
+}
+
+.attendance-stat-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.attendance-stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.attendance-type {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.attendance-percentage {
+    font-size: 24px;
+    font-weight: 800;
+    color: #003d7a;
+}
+
+.attendance-progress-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.attendance-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #003d7a 0%, #0056b3 100%);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.attendance-details {
+    font-size: 12px;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 출석 캘린더 */
+.attendance-calendar {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 16px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calendar-day.present {
+    background: #dcfce7;
+    color: #059669;
+}
+
+.calendar-day.absent {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.calendar-day.holiday {
+    background: #f3f4f6;
+    color: #9ca3af;
+}
+
+.calendar-day:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===================================================
+   4. 민원 처리 페이지 개선
+   =================================================== */
+
+.civil-container {
+    padding: 16px;
+    background: #f9fafb;
+}
+
+.civil-stats-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.civil-stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s;
+}
+
+.civil-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.civil-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 24px;
+}
+
+.civil-stat-icon.total {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    color: #3b82f6;
+}
+
+.civil-stat-icon.pending {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    color: #d97706;
+}
+
+.civil-stat-icon.processing {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    color: #8b5cf6;
+}
+
+.civil-stat-icon.completed {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    color: #059669;
+}
+
+.civil-stat-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1;
+}
+
+.civil-stat-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* 민원 리스트 */
+.civil-list {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.civil-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.civil-filter-tabs {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-tab {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #f3f4f6;
+    color: #6b7280;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-tab.active {
+    background: #003d7a;
+    color: white;
+}
+
+.civil-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.civil-item:hover {
+    background: #f9fafb;
+    border-color: #003d7a;
+}
+
+.civil-status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.civil-status-indicator.pending {
+    background: #f59e0b;
+    animation: blink 2s infinite;
+}
+
+.civil-status-indicator.processing {
+    background: #8b5cf6;
+}
+
+.civil-status-indicator.completed {
+    background: #10b981;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.civil-content {
+    flex: 1;
+}
+
+.civil-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.civil-desc {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.civil-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+/* AI 답변 버튼 */
+.ai-response-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.ai-response-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+/* ===================================================
+   5. 내정보 페이지 개선
+   =================================================== */
+
+.profile-container {
+    padding: 16px;
+    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+    min-height: calc(100vh - 64px);
+}
+
+.profile-header-card {
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 100%);
+    border-radius: 20px;
+    padding: 24px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 61, 122, 0.2);
+}
+
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background: white;
+    margin: 0 auto 16px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-avatar-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.profile-title {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 16px;
+}
+
+.profile-badges {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.profile-badge {
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* 정보 섹션 */
+.profile-section {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title i {
+    color: #003d7a;
+}
+
+.info-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.info-label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #111827;
+    font-weight: 600;
+}
+
+/* 성과 카드 */
+.achievement-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #bbf7d0;
+}
+
+.achievement-icon {
+    font-size: 32px;
+    color: #059669;
+    margin-bottom: 8px;
+}
+
+.achievement-title {
+    font-size: 12px;
+    color: #059669;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.achievement-desc {
+    font-size: 11px;
+    color: #047857;
+}
+
+/* 설정 버튼 */
+.settings-button {
+    width: 100%;
+    padding: 16px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 20px;
+}
+
+.settings-button:hover {
+    background: #f9fafb;
+    border-color: #003d7a;
+    color: #003d7a;
+}

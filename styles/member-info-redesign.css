@@ -1,0 +1,371 @@
+/* 메인화면 의원정보 카드 전면 재디자인 */
+
+/* 메인 카드 컨테이너 */
+.member-card-redesign {
+    background: linear-gradient(135deg, #0056b3 0%, #003d7a 100%);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 61, 122, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 배경 패턴 */
+.member-card-pattern {
+    position: absolute;
+    top: 0;
+    right: -100px;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+/* 헤더 영역 */
+.member-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.member-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.title-icon i {
+    font-size: 14px;
+    color: white;
+}
+
+.title-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.3px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.action-btn i {
+    font-size: 14px;
+    color: white;
+}
+
+/* 프로필 영역 */
+.member-profile-redesign {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+/* 사진 영역 */
+.profile-photo-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: white;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-status {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 26px;
+    height: 26px;
+    background: #10b981;
+    border: 3px solid #0056b3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-status i {
+    font-size: 10px;
+    color: white;
+}
+
+/* 정보 영역 */
+.profile-info {
+    flex: 1;
+    color: white;
+}
+
+.member-name {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.member-party {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.member-district {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.member-district i {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.member-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    backdrop-filter: blur(10px);
+}
+
+.member-role i {
+    font-size: 11px;
+}
+
+/* 상태 뱃지 그룹 */
+.status-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-active {
+    background: #10b981;
+    color: white;
+}
+
+.badge-active .dot {
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 2s infinite;
+}
+
+.badge-term {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-valid {
+    background: rgba(255, 183, 77, 0.2);
+    color: #ffb74d;
+    border: 1px solid rgba(255, 183, 77, 0.4);
+}
+
+/* 통계 카드 그룹 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon i {
+    font-size: 16px;
+    color: white;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.stat-date {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2px;
+}
+
+/* 활동 차트 섹션 */
+.activity-chart-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-title i {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.chart-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    height: 120px;
+    position: relative;
+}
+
+/* 애니메이션 */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 380px) {
+    .member-card-redesign {
+        padding: 16px;
+    }
+    
+    .profile-photo {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .member-name {
+        font-size: 18px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .member-card-redesign {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* 접근성 개선 */
+.action-btn:focus,
+.stat-card:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}

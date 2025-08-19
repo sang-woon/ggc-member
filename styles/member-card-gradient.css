@@ -1,0 +1,213 @@
+/* 의원정보 카드 그라데이션 디자인 */
+
+/* 옵션 1: 파란색에서 빨간색으로 대각선 그라데이션 */
+.member-info-gradient-1 {
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 30%, #6b46c1 60%, #dc2626 100%);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-info-gradient-1:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 옵션 2: 한국 정당 색상 그라데이션 (국민의힘 스타일) */
+.member-info-gradient-2 {
+    background: linear-gradient(120deg, #003d7a 0%, #0056b3 25%, #4169e1 50%, #dc143c 75%, #ff0000 100%);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.member-info-gradient-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+/* 옵션 3: 부드러운 그라데이션 (정부 공식 스타일) */
+.member-info-gradient-3 {
+    background: linear-gradient(90deg, #003d7a 0%, #0056b3 35%, #7c3aed 70%, #dc2626 100%);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 옵션 4: 애니메이션 그라데이션 */
+.member-info-gradient-animated {
+    background: linear-gradient(270deg, #003d7a, #0056b3, #6b46c1, #dc2626);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 공통 스타일 - 의원정보 내부 요소 */
+.member-info-gradient-1 .member-header,
+.member-info-gradient-2 .member-header,
+.member-info-gradient-3 .member-header,
+.member-info-gradient-animated .member-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.member-info-gradient-1 .member-photo,
+.member-info-gradient-2 .member-photo,
+.member-info-gradient-3 .member-photo,
+.member-info-gradient-animated .member-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    background: white;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.member-info-gradient-1 .member-photo img,
+.member-info-gradient-2 .member-photo img,
+.member-info-gradient-3 .member-photo img,
+.member-info-gradient-animated .member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-info-gradient-1 .member-details,
+.member-info-gradient-2 .member-details,
+.member-info-gradient-3 .member-details,
+.member-info-gradient-animated .member-details {
+    flex: 1;
+}
+
+.member-info-gradient-1 .member-name,
+.member-info-gradient-2 .member-name,
+.member-info-gradient-3 .member-name,
+.member-info-gradient-animated .member-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.member-info-gradient-1 .member-subtitle,
+.member-info-gradient-2 .member-subtitle,
+.member-info-gradient-3 .member-subtitle,
+.member-info-gradient-animated .member-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 2px;
+}
+
+.member-info-gradient-1 .member-id,
+.member-info-gradient-2 .member-id,
+.member-info-gradient-3 .member-id,
+.member-info-gradient-animated .member-id {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.member-info-gradient-1 .member-buttons,
+.member-info-gradient-2 .member-buttons,
+.member-info-gradient-3 .member-buttons,
+.member-info-gradient-animated .member-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.member-info-gradient-1 .member-button,
+.member-info-gradient-2 .member-button,
+.member-info-gradient-3 .member-button,
+.member-info-gradient-animated .member-button {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.member-info-gradient-1 .member-button:hover,
+.member-info-gradient-2 .member-button:hover,
+.member-info-gradient-3 .member-button:hover,
+.member-info-gradient-animated .member-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.member-info-gradient-1 .member-button i,
+.member-info-gradient-2 .member-button i,
+.member-info-gradient-3 .member-button i,
+.member-info-gradient-animated .member-button i {
+    font-size: 14px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 430px) {
+    .member-info-gradient-1,
+    .member-info-gradient-2,
+    .member-info-gradient-3,
+    .member-info-gradient-animated {
+        padding: 16px;
+        border-radius: 10px;
+    }
+    
+    .member-info-gradient-1 .member-photo,
+    .member-info-gradient-2 .member-photo,
+    .member-info-gradient-3 .member-photo,
+    .member-info-gradient-animated .member-photo {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .member-info-gradient-1 .member-name,
+    .member-info-gradient-2 .member-name,
+    .member-info-gradient-3 .member-name,
+    .member-info-gradient-animated .member-name {
+        font-size: 18px;
+    }
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .member-info-gradient-1,
+    .member-info-gradient-2,
+    .member-info-gradient-3,
+    .member-info-gradient-animated {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+}

@@ -1,0 +1,401 @@
+/* 내정보 페이지 스타일 */
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.edit-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #003d7a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.edit-toggle-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* 프로필 카드 */
+.profile-card-enhanced {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.profile-main {
+    display: flex;
+    gap: 24px;
+}
+
+.profile-photo-container {
+    position: relative;
+    width: 120px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+}
+
+.photo-edit-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: #003d7a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-basic {
+    flex: 1;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.info-label {
+    min-width: 80px;
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.info-label i {
+    margin-right: 6px;
+    width: 16px;
+    text-align: center;
+}
+
+.info-value {
+    flex: 1;
+    font-size: 15px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.info-value a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.info-value a:hover {
+    text-decoration: underline;
+}
+
+.info-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.info-input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+/* 탭 시스템 */
+.info-tabs {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.tab-header {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    margin-bottom: -2px;
+}
+
+.tab-btn:hover {
+    color: #003d7a;
+}
+
+.tab-btn.active {
+    color: #003d7a;
+    border-bottom-color: #003d7a;
+}
+
+.tab-content {
+    min-height: 200px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.info-section {
+    padding: 4px;
+}
+
+/* 리스트 스타일 */
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+    font-size: 14px;
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-list li::before {
+    content: "•";
+    color: #003d7a;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* 편집 가능한 리스트 */
+.editable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.list-item-edit {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.list-item-edit .info-input {
+    flex: 1;
+}
+
+.btn-remove {
+    width: 32px;
+    height: 32px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add {
+    padding: 8px 16px;
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 8px;
+}
+
+/* 위원회 카드 */
+.committee-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.committee-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f0f9ff;
+    border-left: 4px solid #003d7a;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.committee-card i {
+    color: #003d7a;
+    font-size: 18px;
+}
+
+/* 추가 정보 섹션 */
+.additional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.info-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-card-title i {
+    color: #003d7a;
+}
+
+/* 관심 분야 태그 */
+.interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.interest-tag {
+    padding: 6px 12px;
+    background: #e0f2fe;
+    color: #003d7a;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* 액션 버튼 */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    padding: 20px 0;
+    position: sticky;
+    bottom: 60px;
+    background: linear-gradient(to top, white 80%, transparent);
+    padding-top: 30px;
+}
+
+.btn-save, .btn-cancel {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-save {
+    background: #003d7a;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-cancel {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-cancel:hover {
+    background: #d1d5db;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 430px) {
+    .profile-main {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-basic {
+        width: 100%;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-label {
+        min-width: auto;
+        margin-bottom: 4px;
+    }
+    
+    .tab-header {
+        padding-bottom: 10px;
+    }
+}

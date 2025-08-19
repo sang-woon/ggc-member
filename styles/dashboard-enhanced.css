@@ -1,0 +1,327 @@
+/* ===================================================
+   Enhanced Dashboard Styles - Mobile First Design
+   =================================================== */
+
+/* Today's Focus Section */
+.today-focus {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.today-schedule {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.schedule-time {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.schedule-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* Performance Cards */
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.performance-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.performance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+}
+
+.perf-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+    line-height: 1;
+}
+
+.perf-label {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 4px;
+}
+
+.perf-trend {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    margin-top: 8px;
+    padding: 2px 6px;
+    border-radius: 12px;
+}
+
+.trend-up {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.trend-down {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+/* Quick Actions */
+.quick-actions {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    border-radius: 12px;
+    background: #f7fafc;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+    background: #e2e8f0;
+}
+
+.action-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.action-label {
+    font-size: 11px;
+    color: #4a5568;
+    text-align: center;
+}
+
+/* Activity Timeline */
+.activity-timeline {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.timeline-item {
+    display: flex;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:active {
+    background: #e2e8f0;
+}
+
+.timeline-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.timeline-meta {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 2px;
+}
+
+/* Floating Action Button */
+.fab-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 100;
+}
+
+.fab-main {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fab-main:active {
+    transform: scale(0.9);
+}
+
+/* Progress Ring */
+.progress-ring {
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+
+.progress-ring svg {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke-width: 4;
+}
+
+.progress-ring-bg {
+    stroke: #e2e8f0;
+}
+
+.progress-ring-fill {
+    stroke: #667eea;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+/* Notification Badge */
+.notification-dot {
+    width: 8px;
+    height: 8px;
+    background: #f56565;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(245, 101, 101, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(245, 101, 101, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(245, 101, 101, 0);
+    }
+}
+
+/* Swipe Hint */
+.swipe-hint {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    color: #a0aec0;
+    font-size: 12px;
+}
+
+.swipe-indicator {
+    width: 40px;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    margin: 0 2px;
+}
+
+.swipe-indicator.active {
+    background: #667eea;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 380px) {
+    .performance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .performance-card,
+    .quick-actions,
+    .activity-timeline {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .action-btn {
+        background: #374151;
+        color: #e2e8f0;
+    }
+    
+    .timeline-item {
+        background: #374151;
+    }
+}

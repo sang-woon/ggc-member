@@ -1,0 +1,622 @@
+/* ====================================
+   GYEONGGI PROVINCIAL COUNCIL
+   RESPONSIVE LAYOUT SYSTEM
+   ==================================== */
+
+/* ====================================
+   BREAKPOINT SYSTEM
+   ==================================== */
+
+:root {
+    /* Breakpoints */
+    --bp-xs: 320px;    /* 최소 모바일 */
+    --bp-sm: 430px;    /* 주요 모바일 (기본) */
+    --bp-md: 768px;    /* 태블릿 */
+    --bp-lg: 1024px;   /* 데스크톱 */
+    --bp-xl: 1440px;   /* 대형 데스크톱 */
+    
+    /* Container Widths */
+    --container-xs: 100%;
+    --container-sm: 430px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1200px;
+    
+    /* Grid System */
+    --grid-columns: 12;
+    --grid-gutter: 1rem;
+    --grid-margin: 1rem;
+}
+
+/* ====================================
+   CONTAINER SYSTEM
+   ==================================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container-sm);
+    margin: 0 auto;
+    padding: 0 var(--grid-margin);
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0 var(--grid-margin);
+}
+
+/* Container Variants */
+.container-xs { max-width: var(--container-xs); }
+.container-sm { max-width: var(--container-sm); }
+.container-md { max-width: var(--container-md); }
+.container-lg { max-width: var(--container-lg); }
+.container-xl { max-width: var(--container-xl); }
+
+/* ====================================
+   MOBILE-FIRST GRID SYSTEM
+   ==================================== */
+
+.grid {
+    display: grid;
+    gap: var(--grid-gutter);
+    width: 100%;
+}
+
+/* Default Grid (Mobile) */
+.grid-1 { grid-template-columns: 1fr; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Flexbox Grid */
+.flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--grid-gutter);
+    width: 100%;
+}
+
+.flex-grid > * {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Column Spans */
+.col-1 { flex: 0 0 calc(8.333% - var(--grid-gutter)); }
+.col-2 { flex: 0 0 calc(16.666% - var(--grid-gutter)); }
+.col-3 { flex: 0 0 calc(25% - var(--grid-gutter)); }
+.col-4 { flex: 0 0 calc(33.333% - var(--grid-gutter)); }
+.col-5 { flex: 0 0 calc(41.666% - var(--grid-gutter)); }
+.col-6 { flex: 0 0 calc(50% - var(--grid-gutter)); }
+.col-7 { flex: 0 0 calc(58.333% - var(--grid-gutter)); }
+.col-8 { flex: 0 0 calc(66.666% - var(--grid-gutter)); }
+.col-9 { flex: 0 0 calc(75% - var(--grid-gutter)); }
+.col-10 { flex: 0 0 calc(83.333% - var(--grid-gutter)); }
+.col-11 { flex: 0 0 calc(91.666% - var(--grid-gutter)); }
+.col-12 { flex: 0 0 calc(100% - var(--grid-gutter)); }
+
+/* ====================================
+   MOBILE OPTIMIZATIONS (320px+)
+   ==================================== */
+
+/* Ultra-small screens */
+@media (max-width: 320px) {
+    :root {
+        --grid-margin: 0.75rem;
+        --grid-gutter: 0.75rem;
+    }
+    
+    .container {
+        padding: 0 0.75rem;
+    }
+    
+    /* Stack all columns */
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Typography adjustments */
+    .modal-header-enhanced {
+        padding: 1rem;
+    }
+    
+    .modal-body-enhanced {
+        padding: 1rem;
+    }
+    
+    .modal-footer-enhanced {
+        padding: 1rem;
+        flex-direction: column;
+    }
+    
+    /* Button adjustments */
+    .btn-base {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        min-height: 40px;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        min-height: 48px;
+        font-size: 1rem;
+    }
+    
+    /* Card adjustments */
+    .card-enhanced {
+        margin: 0.5rem 0;
+    }
+    
+    .card-header,
+    .card-content,
+    .card-footer {
+        padding: 0.75rem;
+    }
+}
+
+/* ====================================
+   PRIMARY MOBILE (430px) - OPTIMIZED
+   ==================================== */
+
+@media (min-width: 430px) {
+    .container {
+        max-width: 430px;
+    }
+    
+    /* Enhanced grid for main mobile */
+    .grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Dashboard grid optimization */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    /* Navigation improvements */
+    .bottom-nav-enhanced {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .bottom-nav-item {
+        min-height: 48px;
+    }
+    
+    /* Modal optimizations */
+    .modal-content-enhanced {
+        max-width: 400px;
+        margin: 1rem;
+    }
+}
+
+/* ====================================
+   TABLET LAYOUT (768px+)
+   ==================================== */
+
+@media (min-width: 768px) {
+    :root {
+        --grid-margin: 2rem;
+        --grid-gutter: 1.5rem;
+    }
+    
+    .container {
+        max-width: var(--container-md);
+        padding: 0 2rem;
+    }
+    
+    /* Grid system expansion */
+    .grid-md-1 { grid-template-columns: 1fr; }
+    .grid-md-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-md-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-md-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-md-6 { grid-template-columns: repeat(6, 1fr); }
+    
+    /* Dashboard layout */
+    .dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Sidebar layout */
+    .layout-sidebar {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 2rem;
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        background: hsl(var(--card));
+        border-right: 1px solid hsl(var(--border));
+        padding: 2rem 1rem;
+    }
+    
+    .main-content {
+        padding: 2rem;
+        overflow-y: auto;
+    }
+    
+    /* Hide mobile navigation */
+    .bottom-nav-enhanced {
+        display: none;
+    }
+    
+    /* Modal adjustments */
+    .modal-content-enhanced {
+        max-width: 600px;
+        margin: 2rem;
+    }
+    
+    /* Card grid */
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    /* Table responsive */
+    .table-responsive {
+        overflow-x: visible;
+    }
+    
+    table {
+        min-width: auto;
+    }
+    
+    /* Form layouts */
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .form-grid .form-group-full {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ====================================
+   DESKTOP LAYOUT (1024px+)
+   ==================================== */
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: var(--container-lg);
+    }
+    
+    /* Extended grid system */
+    .grid-lg-1 { grid-template-columns: 1fr; }
+    .grid-lg-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-lg-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-lg-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-lg-6 { grid-template-columns: repeat(6, 1fr); }
+    .grid-lg-12 { grid-template-columns: repeat(12, 1fr); }
+    
+    /* Dashboard layout */
+    .dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* Enhanced sidebar */
+    .layout-sidebar {
+        grid-template-columns: 320px 1fr;
+    }
+    
+    /* Three-column layout */
+    .layout-three-column {
+        display: grid;
+        grid-template-columns: 250px 1fr 250px;
+        gap: 2rem;
+    }
+    
+    /* Modal adjustments */
+    .modal-content-enhanced {
+        max-width: 800px;
+    }
+    
+    /* Large modal variant */
+    .modal-large {
+        max-width: 1000px;
+        width: 90vw;
+    }
+    
+    /* Form layouts */
+    .form-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ====================================
+   LARGE DESKTOP (1440px+)
+   ==================================== */
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: var(--container-xl);
+    }
+    
+    /* Extra large grid */
+    .grid-xl-6 { grid-template-columns: repeat(6, 1fr); }
+    .grid-xl-8 { grid-template-columns: repeat(8, 1fr); }
+    .grid-xl-12 { grid-template-columns: repeat(12, 1fr); }
+    
+    /* Dashboard enhancements */
+    .dashboard-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    
+    /* Wide layout */
+    .layout-wide {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+}
+
+/* ====================================
+   ORIENTATION HANDLING
+   ==================================== */
+
+/* Portrait Mode */
+@media (orientation: portrait) {
+    .landscape-only {
+        display: none;
+    }
+    
+    /* Mobile portrait optimizations */
+    @media (max-width: 768px) {
+        .grid-portrait {
+            grid-template-columns: 1fr;
+        }
+        
+        .dashboard-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        /* Modal full height in portrait */
+        .modal-content-enhanced {
+            max-height: 85vh;
+        }
+        
+        /* Bottom navigation spacing */
+        .main-content {
+            padding-bottom: 100px;
+        }
+    }
+}
+
+/* Landscape Mode */
+@media (orientation: landscape) {
+    .portrait-only {
+        display: none;
+    }
+    
+    /* Mobile landscape optimizations */
+    @media (max-height: 500px) {
+        .grid-landscape {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .dashboard-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        /* Compact modal in landscape */
+        .modal-content-enhanced {
+            max-height: 70vh;
+        }
+        
+        /* Reduced spacing */
+        .card-enhanced {
+            margin: 0.5rem 0;
+        }
+        
+        .btn-base {
+            padding: 0.5rem 1rem;
+            min-height: 36px;
+        }
+        
+        /* Bottom navigation adjustment */
+        .bottom-nav-enhanced {
+            height: 60px;
+        }
+        
+        .main-content {
+            padding-bottom: 80px;
+        }
+    }
+}
+
+/* ====================================
+   COMPONENT RESPONSIVE BEHAVIOR
+   ==================================== */
+
+/* Responsive Cards */
+.card-responsive {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .card-responsive {
+        width: calc(50% - 0.75rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    .card-responsive {
+        width: calc(33.333% - 1rem);
+    }
+}
+
+/* Responsive Images */
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive Video */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive iframe,
+.video-responsive video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Tables */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767px) {
+    .table-responsive table {
+        min-width: 600px;
+    }
+    
+    /* Stack table on very small screens */
+    .table-stack {
+        display: block;
+    }
+    
+    .table-stack thead {
+        display: none;
+    }
+    
+    .table-stack tr {
+        display: block;
+        border: 1px solid hsl(var(--border));
+        margin-bottom: 1rem;
+        border-radius: var(--radius);
+    }
+    
+    .table-stack td {
+        display: block;
+        text-align: right;
+        border: none;
+        padding: 0.5rem;
+        position: relative;
+        padding-left: 50%;
+    }
+    
+    .table-stack td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.5rem;
+        width: 45%;
+        text-align: left;
+        font-weight: 600;
+    }
+}
+
+/* ====================================
+   UTILITY CLASSES
+   ==================================== */
+
+/* Visibility utilities */
+.show-xs { display: block; }
+.show-sm { display: none; }
+.show-md { display: none; }
+.show-lg { display: none; }
+.show-xl { display: none; }
+
+@media (min-width: 430px) {
+    .hide-xs { display: none; }
+    .show-sm { display: block; }
+}
+
+@media (min-width: 768px) {
+    .hide-sm { display: none; }
+    .show-md { display: block; }
+}
+
+@media (min-width: 1024px) {
+    .hide-md { display: none; }
+    .show-lg { display: block; }
+}
+
+@media (min-width: 1440px) {
+    .hide-lg { display: none; }
+    .show-xl { display: block; }
+}
+
+/* Text alignment responsive */
+.text-left-mobile {
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .text-center-tablet {
+        text-align: center;
+    }
+}
+
+@media (min-width: 1024px) {
+    .text-right-desktop {
+        text-align: right;
+    }
+}
+
+/* Spacing utilities responsive */
+@media (max-width: 767px) {
+    .p-mobile { padding: 1rem; }
+    .px-mobile { padding-left: 1rem; padding-right: 1rem; }
+    .py-mobile { padding-top: 1rem; padding-bottom: 1rem; }
+    .m-mobile { margin: 1rem; }
+    .mx-mobile { margin-left: 1rem; margin-right: 1rem; }
+    .my-mobile { margin-top: 1rem; margin-bottom: 1rem; }
+}
+
+/* ====================================
+   ACCESSIBILITY RESPONSIVE
+   ==================================== */
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+    .container {
+        border: 2px solid hsl(var(--foreground));
+    }
+    
+    .grid > * {
+        border: 1px solid hsl(var(--border));
+    }
+}
+
+/* Reduced motion adjustments */
+@media (prefers-reduced-motion: reduce) {
+    .grid,
+    .flex-grid {
+        transition: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .container {
+        max-width: none;
+        padding: 0;
+    }
+    
+    .bottom-nav-enhanced,
+    .btn-fab,
+    .modal-overlay-enhanced {
+        display: none !important;
+    }
+    
+    .card-enhanced {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+    }
+}

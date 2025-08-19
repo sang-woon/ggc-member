@@ -1,0 +1,656 @@
+/* Enhanced Attendance Calendar Styles - 2025.01.18 */
+
+/* 캘린더 컨테이너 */
+.attendance-calendar-wrapper {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* 캘린더 헤더 */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 100%);
+    color: white;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.calendar-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.today-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.today-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 뷰 전환 버튼 */
+.view-switcher {
+    display: flex;
+    gap: 0;
+    padding: 0 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.view-btn {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.view-btn:hover {
+    color: #003d7a;
+    background: rgba(0, 61, 122, 0.05);
+}
+
+.view-btn.active {
+    color: #003d7a;
+    font-weight: 600;
+}
+
+.view-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #003d7a;
+}
+
+/* 월간 뷰 */
+.calendar-grid.month-view {
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.weekday-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+}
+
+.weekday {
+    padding: 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.weekday.sun {
+    color: #ef4444;
+}
+
+.weekday.sat {
+    color: #3b82f6;
+}
+
+.dates-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 1px;
+    background: #e5e7eb;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1px;
+}
+
+.calendar-date {
+    background: white;
+    min-height: 45px;
+    padding: 4px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.calendar-date:hover {
+    background: #f0f9ff;
+}
+
+.calendar-date.other-month {
+    background: #f9fafb;
+}
+
+.calendar-date.other-month .date-number {
+    color: #d1d5db;
+}
+
+.calendar-date.today {
+    background: #eff6ff;
+}
+
+.calendar-date.today .date-number {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.calendar-date.sunday .date-number {
+    color: #ef4444;
+}
+
+.calendar-date.saturday .date-number {
+    color: #3b82f6;
+}
+
+.date-number {
+    font-size: 12px;
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 2px;
+    line-height: 1;
+    text-align: left;
+}
+
+.attendance-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: white;
+}
+
+.attendance-indicator.status-present {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.attendance-indicator.status-excused {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.attendance-indicator.status-absent {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.attendance-indicator.status-scheduled {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+/* 주간 뷰 */
+.calendar-grid.week-view {
+    padding: 20px;
+}
+
+.week-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #e5e7eb;
+    margin-bottom: 1px;
+}
+
+.week-day-header {
+    background: white;
+    padding: 12px;
+    text-align: center;
+}
+
+.week-day-header.today {
+    background: #eff6ff;
+}
+
+.weekday-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.weekday-date {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.week-content {
+    background: #f9fafb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hour-row {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.hour-label {
+    width: 60px;
+    padding: 8px;
+    font-size: 12px;
+    color: #6b7280;
+    text-align: right;
+    border-right: 1px solid #e5e7eb;
+}
+
+.hour-cells {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #e5e7eb;
+}
+
+.hour-cell {
+    background: white;
+    min-height: 40px;
+    padding: 4px;
+    position: relative;
+}
+
+.week-event {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-left: 3px solid #3b82f6;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.week-event:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.week-event.status-present {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-left-color: #10b981;
+}
+
+.week-event.status-excused {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-left-color: #3b82f6;
+}
+
+.event-time {
+    font-size: 10px;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.event-title {
+    font-size: 11px;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 일간 뷰 */
+.calendar-grid.day-view {
+    padding: 20px;
+}
+
+.day-header {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.day-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.day-timeline {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.timeline-row {
+    display: flex;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.timeline-row:last-child {
+    border-bottom: none;
+}
+
+.timeline-row.has-event {
+    background: #fafbfc;
+}
+
+.timeline-hour {
+    width: 80px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    text-align: right;
+    border-right: 1px solid #e5e7eb;
+}
+
+.timeline-content {
+    flex: 1;
+    padding: 8px 16px;
+}
+
+.day-event {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.day-event.status-present {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-left-color: #10b981;
+}
+
+.day-event.status-excused {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-left-color: #3b82f6;
+}
+
+.day-event i {
+    font-size: 20px;
+    color: #6b7280;
+}
+
+.event-details {
+    flex: 1;
+}
+
+.event-details .event-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.event-status {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.event-reason {
+    font-size: 12px;
+    color: #9ca3af;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* 통계 카드 */
+.attendance-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-top: 1px solid #e5e7eb;
+}
+
+@media (min-width: 768px) {
+    .attendance-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.stat-icon.present {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.stat-icon.excused {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.stat-icon.absent {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.stat-icon.rate {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* 상세 모달 */
+.attendance-detail-modal .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.detail-header.status-present {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.detail-header.status-excused {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.detail-header.status-absent {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.detail-header.status-scheduled {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.detail-content h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 16px 0;
+}
+
+.detail-info {
+    space-y: 12px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #4b5563;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item i {
+    width: 20px;
+    color: #9ca3af;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .attendance-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .calendar-date {
+        min-height: 50px;
+        padding: 4px;
+    }
+    
+    .date-number {
+        font-size: 12px;
+    }
+    
+    .attendance-indicator {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+    
+    .week-content {
+        font-size: 11px;
+    }
+    
+    .hour-label {
+        width: 50px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 430px) {
+    .calendar-title {
+        font-size: 16px;
+    }
+    
+    .view-btn {
+        font-size: 13px;
+        padding: 10px;
+    }
+    
+    .weekday {
+        font-size: 11px;
+        padding: 6px;
+    }
+    
+    .calendar-date {
+        min-height: 40px;
+        padding: 3px;
+    }
+    
+    .date-number {
+        font-size: 11px;
+    }
+    
+    .attendance-indicator {
+        width: 16px;
+        height: 16px;
+        font-size: 8px;
+    }
+    
+    .attendance-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 12px;
+    }
+    
+    .stat-card {
+        padding: 10px;
+    }
+    
+    .stat-value {
+        font-size: 18px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,446 @@
+/* Google Calendar Style - 2025.01.18 */
+/* 구글 캘린더 스타일 적용 */
+
+/* 캘린더 컨테이너 */
+.google-calendar-wrapper {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* 캘린더 헤더 */
+.gcal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.gcal-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gcal-nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #5f6368;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.gcal-nav-btn:hover {
+    background: rgba(60,64,67,0.08);
+}
+
+.gcal-nav-btn:active {
+    background: rgba(60,64,67,0.12);
+}
+
+.gcal-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #3c4043;
+    margin: 0 12px;
+}
+
+.gcal-today-btn {
+    padding: 6px 16px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    background: white;
+    color: #3c4043;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gcal-today-btn:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3);
+}
+
+/* 뷰 선택 탭 */
+.gcal-view-tabs {
+    display: flex;
+    padding: 0 16px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.gcal-view-tab {
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #5f6368;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gcal-view-tab:hover {
+    background: rgba(60,64,67,0.04);
+    color: #202124;
+}
+
+.gcal-view-tab.active {
+    color: #1a73e8;
+    border-bottom-color: #1a73e8;
+}
+
+/* 캘린더 그리드 */
+.gcal-grid {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+/* 요일 헤더 */
+.gcal-weekdays {
+    display: table-row;
+}
+
+.gcal-weekday {
+    display: table-cell;
+    padding: 8px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #70757a;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f8f9fa;
+}
+
+/* 날짜 그리드 */
+.gcal-dates {
+    display: table-row-group;
+}
+
+.gcal-week {
+    display: table-row;
+}
+
+.gcal-date {
+    display: table-cell;
+    position: relative;
+    height: 80px;
+    padding: 8px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+    background: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.gcal-date:last-child {
+    border-right: none;
+}
+
+.gcal-date:hover {
+    background: #f8f9fa;
+}
+
+.gcal-date.other-month {
+    background: #fafafa;
+}
+
+.gcal-date.other-month .gcal-date-number {
+    color: #dadce0;
+}
+
+.gcal-date.today {
+    background: #e8f0fe;
+}
+
+.gcal-date.today .gcal-date-number {
+    background: #1a73e8;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+/* 날짜 번호 */
+.gcal-date-number {
+    font-size: 14px;
+    color: #3c4043;
+    margin-bottom: 4px;
+}
+
+/* 이벤트 스타일 */
+.gcal-event {
+    position: relative;
+    margin: 2px 0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+
+.gcal-event:hover {
+    opacity: 0.9;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* 이벤트 타입별 색상 */
+.gcal-event.plenary {
+    background: #db4437;
+}
+
+.gcal-event.committee {
+    background: #4285f4;
+}
+
+.gcal-event.special {
+    background: #673ab7;
+}
+
+.gcal-event.training {
+    background: #0f9d58;
+}
+
+.gcal-event.audit {
+    background: #ff6d00;
+}
+
+.gcal-event.budget {
+    background: #00acc1;
+}
+
+/* 멀티데이 이벤트 (여러 날에 걸친 이벤트) */
+.gcal-event-multiday {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 2px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: white;
+    z-index: 1;
+}
+
+.gcal-event-multiday.start {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -1px;
+}
+
+.gcal-event-multiday.middle {
+    border-radius: 0;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
+.gcal-event-multiday.end {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-left: -1px;
+}
+
+/* 더보기 링크 */
+.gcal-more {
+    font-size: 11px;
+    color: #5f6368;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    margin-top: 2px;
+}
+
+.gcal-more:hover {
+    text-decoration: underline;
+    color: #1a73e8;
+}
+
+/* 사이드바 (미니 캘린더 + 범례) */
+.gcal-sidebar {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+/* 범례 */
+.gcal-legend {
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.gcal-legend-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #3c4043;
+    margin-bottom: 12px;
+}
+
+.gcal-legend-items {
+    display: grid;
+    gap: 8px;
+}
+
+.gcal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.gcal-legend-item:hover {
+    background: #f1f3f4;
+}
+
+.gcal-legend-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.gcal-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .gcal-date {
+        height: 60px;
+        padding: 4px;
+    }
+    
+    .gcal-date-number {
+        font-size: 12px;
+    }
+    
+    .gcal-event {
+        font-size: 10px;
+        padding: 1px 3px;
+    }
+    
+    .gcal-weekday {
+        font-size: 10px;
+        padding: 6px 2px;
+    }
+    
+    .gcal-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 430px) {
+    .gcal-header {
+        padding: 8px 12px;
+    }
+    
+    .gcal-nav-btn {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .gcal-today-btn {
+        padding: 4px 12px;
+        font-size: 13px;
+    }
+    
+    .gcal-date {
+        height: 50px;
+        padding: 2px;
+    }
+    
+    .gcal-date-number {
+        font-size: 11px;
+    }
+    
+    .gcal-event {
+        font-size: 9px;
+        padding: 1px 2px;
+        margin: 1px 0;
+    }
+    
+    .gcal-weekday {
+        font-size: 9px;
+        letter-spacing: 0;
+    }
+}
+
+/* 툴팁 */
+.gcal-tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.gcal-tooltip.show {
+    opacity: 1;
+}
+
+/* 로딩 스피너 */
+.gcal-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #5f6368;
+}
+
+.gcal-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e0e0e0;
+    border-top-color: #1a73e8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

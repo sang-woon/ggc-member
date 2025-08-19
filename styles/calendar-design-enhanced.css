@@ -1,0 +1,478 @@
+/* Enhanced Calendar Design - 2025.01.18 */
+/* 직관적인 캘린더 디자인 with 범례 */
+
+/* 범례 스타일 */
+.calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #4b5563;
+}
+
+.legend-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.legend-dot i {
+    font-size: 10px;
+}
+
+/* 회의 유형별 색상 시스템 */
+.legend-dot.plenary {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.legend-dot.committee {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.legend-dot.special {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.legend-dot.training {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.legend-dot.audit {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+}
+
+.legend-dot.budget {
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+}
+
+/* 캘린더 날짜 셀 개선 */
+.calendar-date {
+    background: white !important;
+    min-height: 45px !important;
+    padding: 3px !important;
+    position: relative !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    border-radius: 4px !important;
+    margin: 1px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+}
+
+.calendar-date:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+
+.calendar-date.has-event {
+    border: 2px solid transparent;
+}
+
+.calendar-date.has-event.plenary {
+    border-color: #dc2626;
+    background: linear-gradient(135deg, #fff, #fef2f2) !important;
+}
+
+.calendar-date.has-event.committee {
+    border-color: #2563eb;
+    background: linear-gradient(135deg, #fff, #eff6ff) !important;
+}
+
+.calendar-date.has-event.special {
+    border-color: #7c3aed;
+    background: linear-gradient(135deg, #fff, #f5f3ff) !important;
+}
+
+.calendar-date.has-event.training {
+    border-color: #059669;
+    background: linear-gradient(135deg, #fff, #f0fdf4) !important;
+}
+
+.calendar-date.has-event.audit {
+    border-color: #ea580c;
+    background: linear-gradient(135deg, #fff, #fff7ed) !important;
+}
+
+.calendar-date.has-event.budget {
+    border-color: #0891b2;
+    background: linear-gradient(135deg, #fff, #f0fdfa) !important;
+}
+
+/* 출석 인디케이터 개선 */
+.event-indicator {
+    position: absolute !important;
+    bottom: 2px !important;
+    right: 2px !important;
+    left: 2px !important;
+    height: 20px !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 9px !important;
+    color: white !important;
+    padding: 2px 4px !important;
+    gap: 4px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.event-indicator i {
+    font-size: 10px !important;
+}
+
+.event-indicator .event-type-text {
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 35px !important;
+}
+
+/* 회의 유형별 인디케이터 색상 */
+.event-indicator.type-plenary {
+    background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.event-indicator.type-committee {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+}
+
+.event-indicator.type-special {
+    background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+}
+
+.event-indicator.type-training {
+    background: linear-gradient(90deg, #059669, #10b981);
+}
+
+.event-indicator.type-audit {
+    background: linear-gradient(90deg, #ea580c, #f97316);
+}
+
+.event-indicator.type-budget {
+    background: linear-gradient(90deg, #0891b2, #06b6d4);
+}
+
+/* 출석 상태 뱃지 */
+.status-badge {
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    border: 1px solid white !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.status-badge.present {
+    background: #10b981;
+}
+
+.status-badge.excused {
+    background: #f59e0b;
+}
+
+.status-badge.absent {
+    background: #ef4444;
+}
+
+.status-badge.scheduled {
+    background: #6b7280;
+}
+
+/* 상세보기 모달 개선 */
+.event-detail-modal {
+    padding: 0;
+}
+
+.event-detail-header {
+    padding: 16px;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.event-detail-header.plenary {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.event-detail-header.committee {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.event-detail-header.special {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.event-detail-header.training {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.event-detail-header.audit {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+}
+
+.event-detail-header.budget {
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+}
+
+.event-detail-content {
+    padding: 16px;
+}
+
+.event-detail-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.event-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.event-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.event-info-item i {
+    width: 20px;
+    color: #9ca3af;
+    text-align: center;
+}
+
+.event-info-item strong {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* 출석 상태 카드 */
+.attendance-status-card {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.attendance-status-card.present {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #059669;
+}
+
+.attendance-status-card.excused {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    color: #c2410c;
+}
+
+.attendance-status-card.absent {
+    background: linear-gradient(135deg, #fecaca, #fca5a5);
+    color: #b91c1c;
+}
+
+.attendance-status-card.scheduled {
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+    color: #4b5563;
+}
+
+.attendance-status-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.attendance-status-icon {
+    font-size: 20px;
+}
+
+/* 액션 버튼 그룹 */
+.event-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.event-action-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.event-action-btn:hover {
+    background: #f8f9fa;
+    color: #1f2937;
+    transform: translateY(-1px);
+}
+
+.event-action-btn.primary {
+    background: #003d7a;
+    color: white;
+    border-color: #003d7a;
+}
+
+.event-action-btn.primary:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+}
+
+/* 빠른 필터 버튼 */
+.quick-filters {
+    display: flex;
+    gap: 6px;
+    padding: 8px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.filter-btn {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background: #f8f9fa;
+}
+
+.filter-btn.active {
+    background: #003d7a;
+    color: white;
+    border-color: #003d7a;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 430px) {
+    .calendar-legend {
+        gap: 8px;
+        padding: 10px;
+    }
+    
+    .legend-item {
+        font-size: 11px;
+    }
+    
+    .legend-dot {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+    }
+    
+    .calendar-date {
+        min-height: 40px !important;
+    }
+    
+    .event-indicator {
+        height: 18px !important;
+        font-size: 8px !important;
+    }
+    
+    .event-indicator .event-type-text {
+        font-size: 8px !important;
+        max-width: 30px !important;
+    }
+    
+    .event-detail-title {
+        font-size: 16px;
+    }
+    
+    .event-info-item {
+        font-size: 13px;
+        padding: 10px;
+    }
+}
+
+/* 애니메이션 */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(37, 99, 235, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    }
+}
+
+.calendar-date.today {
+    animation: pulse 2s infinite;
+}
+
+/* 툴팁 스타일 */
+.event-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 11px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 100;
+}
+
+.calendar-date:hover .event-tooltip {
+    opacity: 1;
+}

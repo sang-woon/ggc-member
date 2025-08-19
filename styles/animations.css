@@ -1,0 +1,750 @@
+/* ====================================
+   GYEONGGI PROVINCIAL COUNCIL
+   ANIMATION SYSTEM
+   ==================================== */
+
+/* ====================================
+   ANIMATION VARIABLES & SETTINGS
+   ==================================== */
+
+:root {
+    /* Animation Durations */
+    --duration-instant: 0.1s;
+    --duration-fast: 0.2s;
+    --duration-normal: 0.3s;
+    --duration-slow: 0.5s;
+    --duration-slower: 0.8s;
+    
+    /* Easing Functions */
+    --ease-linear: linear;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-bounce: cubic-bezier(0.68, 0.55, 0.265, 1.55);
+    
+    /* Spring Physics */
+    --spring-wobbly: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --spring-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --spring-bouncy: cubic-bezier(0.68, 0.55, 0.265, 1.55);
+}
+
+/* ====================================
+   PAGE TRANSITIONS
+   ==================================== */
+
+/* Page Container */
+.page-container {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Page Transition Base */
+.page-transition {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform var(--duration-normal) var(--ease-in-out),
+                opacity var(--duration-normal) var(--ease-in-out);
+}
+
+/* Slide Transitions */
+.slide-enter {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.slide-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slide-exit {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slide-exit-active {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* Slide from Left */
+.slide-left-enter {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.slide-left-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slide-left-exit {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slide-left-exit-active {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Fade Transitions */
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-in);
+}
+
+/* Scale Transitions */
+.scale-enter {
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.scale-enter-active {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform var(--duration-normal) var(--ease-back),
+                opacity var(--duration-normal) var(--ease-out);
+}
+
+.scale-exit {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.scale-exit-active {
+    transform: scale(1.1);
+    opacity: 0;
+    transition: transform var(--duration-normal) var(--ease-in),
+                opacity var(--duration-normal) var(--ease-in);
+}
+
+/* ====================================
+   MICRO INTERACTIONS
+   ==================================== */
+
+/* Button Hover & Press */
+.btn-base {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.btn-base:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 61, 122, 0.2);
+}
+
+.btn-base:active {
+    transform: translateY(0);
+    transition-duration: var(--duration-instant);
+}
+
+/* Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    animation: ripple-animation 0.6s var(--ease-out);
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Touch Feedback */
+.touch-active {
+    transform: scale(0.95);
+    transition: transform var(--duration-instant) var(--ease-out);
+}
+
+/* Card Interactions */
+.card-interactive {
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-interactive:active {
+    transform: translateY(-2px);
+    transition-duration: var(--duration-instant);
+}
+
+/* List Item Interactions */
+.list-item-enhanced {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.list-item-enhanced::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--gov-primary);
+    opacity: 0.1;
+    transition: width var(--duration-fast) var(--ease-out);
+}
+
+.list-item-enhanced:hover::before {
+    width: 4px;
+}
+
+.list-item-enhanced:active {
+    background: hsl(var(--accent) / 0.8);
+    transform: scale(0.98);
+}
+
+/* ====================================
+   LOADING ANIMATIONS
+   ==================================== */
+
+/* Skeleton Loading */
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        hsl(var(--muted)) 0%,
+        hsl(var(--muted) / 0.8) 50%,
+        hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse {
+    animation: pulse 2s var(--ease-in-out) infinite;
+}
+
+/* Spinner Animations */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -30px, 0);
+    }
+    70% {
+        transform: translate3d(0, -15px, 0);
+    }
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+.bounce {
+    animation: bounce 1s ease infinite;
+}
+
+/* Dots Loading */
+@keyframes dots-loading {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.dots-loading {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.dots-loading div {
+    width: 8px;
+    height: 8px;
+    background: var(--gov-primary);
+    border-radius: 50%;
+    animation: dots-loading 1.4s ease-in-out infinite both;
+}
+
+.dots-loading div:nth-child(1) { animation-delay: -0.32s; }
+.dots-loading div:nth-child(2) { animation-delay: -0.16s; }
+.dots-loading div:nth-child(3) { animation-delay: 0; }
+
+/* ====================================
+   MODAL ANIMATIONS
+   ==================================== */
+
+/* Modal Overlay */
+.modal-overlay-enhanced {
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.modal-overlay-enhanced.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Content Animations */
+.modal-content-enhanced {
+    transform: scale(0.8) translateY(50px);
+    opacity: 0;
+    transition: all var(--duration-normal) var(--ease-back);
+}
+
+.modal-overlay-enhanced.active .modal-content-enhanced {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Slide Up Modal */
+.modal-slide-up {
+    transform: translateY(100%);
+    transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.modal-overlay-enhanced.active .modal-slide-up {
+    transform: translateY(0);
+}
+
+/* ====================================
+   NAVIGATION ANIMATIONS
+   ==================================== */
+
+/* Hamburger Menu Animation */
+.hamburger-menu {
+    transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.menu-open .hamburger-menu {
+    transform: translateX(0);
+}
+
+.hamburger-menu:not(.menu-open) {
+    transform: translateX(-100%);
+}
+
+/* Menu Items Stagger */
+.menu-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.menu-open .menu-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.menu-open .menu-item:nth-child(1) { transition-delay: 0.1s; }
+.menu-open .menu-item:nth-child(2) { transition-delay: 0.15s; }
+.menu-open .menu-item:nth-child(3) { transition-delay: 0.2s; }
+.menu-open .menu-item:nth-child(4) { transition-delay: 0.25s; }
+.menu-open .menu-item:nth-child(5) { transition-delay: 0.3s; }
+
+/* Bottom Navigation */
+.bottom-nav-item {
+    transition: all var(--duration-fast) var(--ease-out);
+    position: relative;
+}
+
+.bottom-nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--gov-primary);
+    border-radius: 50%;
+    animation: nav-indicator 0.3s var(--ease-back);
+}
+
+@keyframes nav-indicator {
+    0% {
+        transform: translateX(-50%) scale(0);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.5);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* ====================================
+   GESTURE FEEDBACK
+   ==================================== */
+
+/* Pull to Refresh */
+.refresh-indicator {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: hsl(var(--background));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transition: all var(--duration-fast) var(--ease-out);
+    z-index: 1000;
+}
+
+.refresh-spinner {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-text {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    white-space: nowrap;
+}
+
+/* Back Gesture Indicator */
+.back-gesture-indicator {
+    position: fixed;
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--gov-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all var(--duration-fast) var(--ease-out);
+    z-index: 1000;
+}
+
+/* Infinite Loading */
+.infinite-loading {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background: hsl(var(--background));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(var(--border));
+    border-top-color: var(--gov-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    white-space: nowrap;
+}
+
+/* ====================================
+   UTILITY ANIMATIONS
+   ==================================== */
+
+/* Fade In/Out */
+.fade-in {
+    animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+.fade-out {
+    animation: fadeOut var(--duration-normal) var(--ease-in);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Slide In/Out */
+.slide-in-up {
+    animation: slideInUp var(--duration-normal) var(--ease-out);
+}
+
+.slide-in-down {
+    animation: slideInDown var(--duration-normal) var(--ease-out);
+}
+
+.slide-in-left {
+    animation: slideInLeft var(--duration-normal) var(--ease-out);
+}
+
+.slide-in-right {
+    animation: slideInRight var(--duration-normal) var(--ease-out);
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scale Animations */
+.scale-in {
+    animation: scaleIn var(--duration-normal) var(--ease-back);
+}
+
+.scale-out {
+    animation: scaleOut var(--duration-normal) var(--ease-in);
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Shake Animation */
+.shake {
+    animation: shake 0.5s var(--ease-in-out);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+/* Wobble Animation */
+.wobble {
+    animation: wobble 1s var(--ease-in-out);
+}
+
+@keyframes wobble {
+    0% { transform: translateX(0%); }
+    15% { transform: translateX(-25%) rotate(-5deg); }
+    30% { transform: translateX(20%) rotate(3deg); }
+    45% { transform: translateX(-15%) rotate(-3deg); }
+    60% { transform: translateX(10%) rotate(2deg); }
+    75% { transform: translateX(-5%) rotate(-1deg); }
+    100% { transform: translateX(0%); }
+}
+
+/* ====================================
+   PERFORMANCE OPTIMIZATIONS
+   ==================================== */
+
+/* GPU Acceleration */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .skeleton {
+        animation: none;
+        background: hsl(var(--muted));
+    }
+}
+
+/* ====================================
+   QUICK ACTIONS ANIMATION
+   ==================================== */
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: quickActionIn var(--duration-normal) var(--ease-back) forwards;
+}
+
+.quick-action:nth-child(1) { animation-delay: 0.1s; }
+.quick-action:nth-child(2) { animation-delay: 0.15s; }
+.quick-action:nth-child(3) { animation-delay: 0.2s; }
+.quick-action:nth-child(4) { animation-delay: 0.25s; }
+
+.quick-action:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.quick-action i {
+    font-size: 1.5rem;
+    color: var(--gov-primary);
+}
+
+.quick-action span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+@keyframes quickActionIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,17 +1,113 @@
 // App Pages - Page Loading and Content Management
 Object.assign(window.app, {
-    // Load Home Page
+    // Load Home Page - Original Design with Photos and Tailwind
     loadHomePage: function() {
+        console.log('🏠 loadHomePage 함수 실행됨 - 원본 템플릿 사용');
         const template = document.getElementById('homePage');
         if (template) {
             const content = template.content.cloneNode(true);
             const mainContent = document.getElementById('mainContent');
             if (mainContent) {
                 mainContent.innerHTML = '';
+                
+                // 버전 표시 추가
+                const versionBadge = document.createElement('div');
+                versionBadge.style.cssText = `
+                    position: fixed;
+                    top: 60px;
+                    right: 10px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+                    z-index: 100;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+                versionBadge.innerHTML = `
+                    <span style="font-size: 13px; font-weight: 700;">v2.1</span>
+                    <span style="opacity: 0.9;">2025.01.18</span>
+                `;
+                mainContent.appendChild(versionBadge);
                 mainContent.appendChild(content);
                 
-                // 차트 초기화
+                // 이벤트 리스너 추가 - 이벤트 위임 방식 사용
                 setTimeout(() => {
+                    console.log('이벤트 위임 설정 시작...');
+                    
+                    // 이벤트 위임을 위한 클릭 핸들러
+                    mainContent.addEventListener('click', function(e) {
+                        const target = e.target;
+                        
+                        // 클릭된 요소 또는 부모 요소 확인
+                        const clickedElement = target.closest('[onclick]');
+                        
+                        if (clickedElement) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            const onclickAttr = clickedElement.getAttribute('onclick');
+                            console.log('클릭 감지:', onclickAttr);
+                            
+                            // onclick 속성의 내용을 직접 실행
+                            try {
+                                // eval을 사용하여 실행 (window.app 컨텍스트에서)
+                                eval(onclickAttr);
+                                console.log('✅ 함수 실행 성공');
+                            } catch(err) {
+                                console.error('❌ onclick 실행 오류:', err);
+                                console.error('오류 상세:', err.stack);
+                                
+                                // 함수 이름과 파라미터를 파싱해서 직접 호출
+                                try {
+                                    const match = onclickAttr.match(/window\.app\.(\w+)\((.*?)\)/);
+                                    if (match) {
+                                        const funcName = match[1];
+                                        const params = match[2];
+                                        
+                                        console.log('함수명:', funcName);
+                                        console.log('파라미터:', params);
+                                        
+                                        if (window.app[funcName]) {
+                                            if (params) {
+                                                // 파라미터가 있는 경우
+                                                const paramArray = params.split(',').map(p => {
+                                                    const trimmed = p.trim();
+                                                    // 문자열인 경우 따옴표 제거
+                                                    if ((trimmed.startsWith("'") && trimmed.endsWith("'")) || 
+                                                        (trimmed.startsWith('"') && trimmed.endsWith('"'))) {
+                                                        return trimmed.slice(1, -1);
+                                                    }
+                                                    // 숫자인 경우
+                                                    if (!isNaN(trimmed)) {
+                                                        return parseInt(trimmed);
+                                                    }
+                                                    return trimmed;
+                                                });
+                                                window.app[funcName](...paramArray);
+                                            } else {
+                                                // 파라미터가 없는 경우
+                                                window.app[funcName]();
+                                            }
+                                            console.log('✅ 직접 호출 성공');
+                                        } else {
+                                            console.error('❌ 함수를 찾을 수 없습니다:', funcName);
+                                        }
+                                    }
+                                } catch(err2) {
+                                    console.error('❌ 직접 호출 실패:', err2);
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('✅ 이벤트 위임 설정 완료');
+                    
+                    // 차트 초기화
                     this.initMonthlyChart();
                 }, 100);
             }
@@ -271,13 +367,23 @@ Object.assign(window.app, {
     initMonthlyChart: function() {
         const canvas = document.getElementById('monthlyChart');
         if (canvas && typeof Chart !== 'undefined') {
-            const ctx = canvas.getContext('2d');
+            // Chart.js의 getChart 메서드로 기존 차트 확인
+            const existingChart = Chart.getChart(canvas);
+            if (existingChart) {
+                existingChart.destroy();
+            }
             
             // 기존 차트가 있다면 제거
             if (this.monthlyChart && typeof this.monthlyChart.destroy === 'function') {
-                this.monthlyChart.destroy();
+                try {
+                    this.monthlyChart.destroy();
+                } catch(e) {
+                    console.log('차트 제거 중 오류:', e);
+                }
+                this.monthlyChart = null;
             }
             
+            const ctx = canvas.getContext('2d');
             this.monthlyChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -420,6 +526,16 @@ Object.assign(window.app, {
             if (mainContent) {
                 mainContent.innerHTML = '';
                 mainContent.appendChild(content);
+                
+                // 캘린더 초기화
+                setTimeout(() => {
+                    if (window.AttendanceCalendar) {
+                        console.log('출석 캘린더 초기화 시작');
+                        window.AttendanceCalendar.init();
+                    } else {
+                        console.error('AttendanceCalendar 객체를 찾을 수 없습니다');
+                    }
+                }, 100);
             }
         }
     },
@@ -433,7 +549,7 @@ Object.assign(window.app, {
                     
                     <div class="flex items-start space-x-4 mb-4">
                         <div class="w-24 h-30 rounded overflow-hidden border">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 120'%3E%3Crect width='96' height='120' fill='%23f3f4f6'/%3E%3Ccircle cx='48' cy='35' r='15' fill='%23d1d5db'/%3E%3Cpath d='M20 85 Q20 70 30 70 H66 Q76 70 76 85 V100 H20 Z' fill='%23d1d5db'/%3E%3C/svg%3E" alt="임시 익명 프로필" class="w-full h-full object-cover">
+                            <img src="images/annomimus.jpg" alt="김영수 의원" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-1">
                             <h4 class="font-bold text-lg mb-2">${this.memberData.name}</h4>
@@ -2735,11 +2851,28 @@ Object.assign(window.app, {
         }
     },
     
-    // Initialize Monthly Chart
-    initMonthlyChart: function() {
-        const ctx = document.getElementById('monthlyChart');
-        if (ctx && window.Chart) {
-            new Chart(ctx, {
+    // Initialize Monthly Chart (Duplicate function - fixed)
+    initMonthlyChartDuplicate: function() {
+        const canvas = document.getElementById('monthlyChart');
+        if (canvas && window.Chart) {
+            // Chart.js의 getChart 메서드로 기존 차트 확인
+            const existingChart = Chart.getChart(canvas);
+            if (existingChart) {
+                existingChart.destroy();
+            }
+            
+            // 기존 차트가 있으면 제거
+            if (window.homePageChart) {
+                try {
+                    window.homePageChart.destroy();
+                } catch(e) {
+                    console.log('차트 제거 중 오류:', e);
+                }
+                window.homePageChart = null;
+            }
+            
+            const ctx = canvas.getContext('2d');
+            window.homePageChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['7월', '8월', '9월', '10월', '11월', '12월'],
@@ -2811,4 +2944,4 @@ Object.assign(window.app, {
             authElement.textContent = '방금 전';
         }
     }
-});
+});// Cache buster: %date% %time%

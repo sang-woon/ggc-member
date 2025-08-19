@@ -1,0 +1,953 @@
+/* ===================================================
+   경기도의회 의정활동 관리시스템 - 통합 스타일시트
+   버전: 3.0.0
+   최종 수정: 2025-01-18
+   =================================================== */
+
+/* ===================================================
+   1. CSS 변수 정의 - 정부 표준 색상
+   =================================================== */
+:root {
+    /* 경기도 공식 색상 */
+    --gov-primary: #003d7a;
+    --gov-primary-dark: #002a5c;
+    --gov-primary-light: #0056b3;
+    --gov-secondary: #1e3a8a;
+    --gov-accent: #3b82f6;
+    
+    /* 상태 색상 */
+    --success: #059669;
+    --warning: #d97706;
+    --error: #dc2626;
+    --info: #0284c7;
+    
+    /* 중립 색상 */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* 그림자 */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ===================================================
+   2. 기본 리셋 및 글로벌 스타일
+   =================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-break: keep-all;
+    overflow-x: hidden;
+}
+
+/* ===================================================
+   3. 모바일 컨테이너
+   =================================================== */
+.mobile-container {
+    max-width: 430px;
+    width: 100%;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+    .mobile-container {
+        margin: 20px auto;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+}
+
+/* ===================================================
+   4. 헤더 스타일
+   =================================================== */
+.gov-header {
+    background: linear-gradient(135deg, var(--gov-primary) 0%, var(--gov-primary-light) 100%);
+    color: white;
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+}
+
+.gov-header .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gov-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.gov-header button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.gov-header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.gov-header img {
+    width: 32px;
+    height: 32px;
+}
+
+/* 알림 배지 */
+.notification-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: var(--error);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 10px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* ===================================================
+   5. 사이드 메뉴
+   =================================================== */
+.side-menu {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    z-index: 1000;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.gov-menu-header {
+    background: linear-gradient(135deg, var(--gov-primary) 0%, var(--gov-primary-light) 100%);
+    padding: 20px 16px;
+    color: white;
+}
+
+.gov-menu-header .flex {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gov-menu-header img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.gov-menu-header .font-semibold {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.gov-menu-header .text-xs {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* 메뉴 아이템 */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+}
+
+.menu-item i {
+    width: 20px;
+    margin-right: 12px;
+    text-align: center;
+    color: var(--gov-primary);
+}
+
+.menu-item:hover {
+    background: var(--gray-50);
+}
+
+.menu-item.active {
+    background: #e8f4fd;
+    color: var(--gov-primary);
+    font-weight: 600;
+    border-left: 3px solid var(--gov-primary);
+}
+
+/* 오버레이 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===================================================
+   6. 메인 콘텐츠
+   =================================================== */
+.main-content {
+    padding: 16px;
+    padding-bottom: 80px;
+    min-height: calc(100vh - 60px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.page-container {
+    max-width: 100%;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================================
+   7. 카드 컴포넌트
+   =================================================== */
+.gov-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gray-200);
+}
+
+.gov-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 12px;
+}
+
+/* 통계 카드 */
+.gov-stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gray-200);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gov-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.gov-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.gov-stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1;
+}
+
+.gov-stat-label {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-top: 2px;
+}
+
+.gov-stat-detail {
+    font-size: 11px;
+    color: var(--gray-500);
+}
+
+/* ===================================================
+   8. 하단 네비게이션
+   =================================================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 64px;
+    border-top: 1px solid var(--gray-200);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+}
+
+.bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.bottom-nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.bottom-nav-item span {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.bottom-nav-item:hover {
+    color: var(--gov-primary);
+}
+
+.bottom-nav-item.active {
+    color: var(--gov-primary);
+}
+
+.bottom-nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gov-primary);
+}
+
+/* ===================================================
+   9. 버튼 스타일
+   =================================================== */
+.btn-primary {
+    background: linear-gradient(135deg, var(--gov-primary) 0%, var(--gov-primary-light) 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--gov-primary);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 2px solid var(--gov-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: var(--gray-50);
+}
+
+/* ===================================================
+   10. 폼 요소
+   =================================================== */
+input, textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s;
+    background: white;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--gov-primary);
+    box-shadow: 0 0 0 3px rgba(0, 61, 122, 0.1);
+}
+
+/* ===================================================
+   11. 활동 아이템
+   =================================================== */
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid var(--gray-200);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.activity-item:hover {
+    background: var(--gray-50);
+    transform: translateX(2px);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.activity-desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-top: 2px;
+}
+
+.activity-date {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-top: 4px;
+}
+
+/* ===================================================
+   12. 배지
+   =================================================== */
+.gov-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.gov-badge-active {
+    background: #dcf4e4;
+    color: var(--success);
+}
+
+/* ===================================================
+   13. 출석 관련
+   =================================================== */
+.attendance-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gov-primary) 0%, var(--gov-primary-light) 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gov-primary);
+}
+
+/* ===================================================
+   13.5. 프로필 사진 공통 스타일
+   =================================================== */
+.member-photo {
+    object-fit: cover;
+    background: #f3f4f6;
+}
+
+.member-photo-circle {
+    border-radius: 50%;
+    border: 2px solid var(--gov-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.member-photo-rounded {
+    border-radius: 8px;
+    border: 2px solid var(--gov-primary-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 프로필 사진 크기 클래스 */
+.photo-xs {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    min-height: 32px;
+}
+
+.photo-sm {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.photo-md {
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px;
+    min-height: 64px;
+}
+
+.photo-lg {
+    width: 80px !important;
+    height: 80px !important;
+    min-width: 80px;
+    min-height: 80px;
+}
+
+.photo-xl {
+    width: 96px !important;
+    height: 120px !important;
+    min-width: 96px;
+    min-height: 120px;
+}
+
+/* 이미지 컨테이너 스타일 */
+.photo-container {
+    display: inline-block;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ===================================================
+   14. 디지털 신분증
+   =================================================== */
+.digital-id-card {
+    background: linear-gradient(135deg, #003d7a 0%, #0056b3 100%);
+    border-radius: 16px;
+    padding: 20px;
+    color: white;
+    box-shadow: var(--shadow-xl);
+}
+
+.digital-id-header {
+    text-align: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 16px;
+}
+
+.digital-id-body {
+    padding: 16px 0;
+}
+
+.id-photo {
+    width: 96px;
+    height: 120px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    flex-shrink: 0;
+}
+
+.id-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.id-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.id-label {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.id-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.qr-container {
+    width: 150px;
+    height: 150px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 16px auto;
+}
+
+/* ===================================================
+   15. 빠른 메뉴
+   =================================================== */
+.quick-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quick-menu-item:hover {
+    background: var(--gray-50);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.quick-menu-item i {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.quick-menu-item span {
+    font-size: 12px;
+    color: var(--gray-700);
+}
+
+/* ===================================================
+   16. 정부 공지
+   =================================================== */
+.gov-notice {
+    background: linear-gradient(90deg, #fff4e6 0%, #ffe4cc 100%);
+    border-left: 4px solid var(--warning);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--gray-800);
+    display: flex;
+    align-items: center;
+}
+
+.gov-notice i {
+    color: var(--warning);
+    margin-right: 8px;
+}
+
+/* ===================================================
+   17. 유틸리티 클래스
+   =================================================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 14px; }
+.text-base { font-size: 16px; }
+.text-lg { font-size: 18px; }
+.text-xl { font-size: 20px; }
+.text-2xl { font-size: 24px; }
+
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 16px; }
+
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+
+.p-2 { padding: 8px; }
+.p-3 { padding: 12px; }
+.p-4 { padding: 16px; }
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+
+.grid { display: grid; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.bg-white { background: white; }
+.bg-gray-50 { background: var(--gray-50); }
+.bg-gray-100 { background: var(--gray-100); }
+
+.text-white { color: white; }
+.text-gray-600 { color: var(--gray-600); }
+.text-gray-700 { color: var(--gray-700); }
+.text-gray-900 { color: var(--gray-900); }
+
+.border { border: 1px solid var(--gray-200); }
+.border-gray-300 { border-color: var(--gray-300); }
+
+.rounded { border-radius: 4px; }
+.rounded-lg { border-radius: 8px; }
+.rounded-full { border-radius: 9999px; }
+
+.shadow { box-shadow: var(--shadow); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+.transition { transition: all 0.2s; }
+
+/* ===================================================
+   18. 반응형
+   =================================================== */
+@media (max-width: 430px) {
+    .mobile-container {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
+    .bottom-nav {
+        border-radius: 0;
+    }
+}
+
+/* ===================================================
+   19. 스크롤바
+   =================================================== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gray-400);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-500);
+}
+
+/* ===================================================
+   20. 로딩 애니메이션
+   =================================================== */
+.skeleton {
+    background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ===================================================
+   21. 접근성
+   =================================================== */
+*:focus {
+    outline: 2px solid var(--gov-primary);
+    outline-offset: 2px;
+}
+
+button:focus,
+a:focus {
+    outline: 2px solid var(--gov-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===================================================
+   21. 반응형 사진 크기 조정
+   =================================================== */
+@media (max-width: 380px) {
+    .photo-sm {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .photo-md {
+        width: 56px !important;
+        height: 56px !important;
+        min-width: 56px;
+        min-height: 56px;
+    }
+    
+    .photo-lg {
+        width: 72px !important;
+        height: 72px !important;
+        min-width: 72px;
+        min-height: 72px;
+    }
+    
+    .photo-xl {
+        width: 80px !important;
+        height: 100px !important;
+        min-width: 80px;
+        min-height: 100px;
+    }
+    
+    /* 작은 화면에서 레이아웃 조정 */
+    .flex.items-center.space-x-4 {
+        gap: 12px;
+    }
+    
+    .flex.items-center.space-x-3 {
+        gap: 8px;
+    }
+}
+
+/* 데스크톱 화면에서 사진 크기 */
+@media (min-width: 768px) {
+    .photo-md {
+        width: 72px !important;
+        height: 72px !important;
+    }
+    
+    .photo-lg {
+        width: 96px !important;
+        height: 96px !important;
+    }
+    
+    .photo-xl {
+        width: 120px !important;
+        height: 150px !important;
+    }
+}

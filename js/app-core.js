@@ -11,7 +11,7 @@ window.app = {
         generation: '제11기',
         term: '초선',
         committees: ['교육위원회(위원장)', '예산결산특별위원회'],
-        photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f3f4f6'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23d1d5db'/%3E%3Cpath d='M20 75 Q20 60 35 60 H65 Q80 60 80 75 V85 Q80 90 75 90 H25 Q20 90 20 85 Z' fill='%23d1d5db'/%3E%3C/svg%3E",
+        photo: "images/annomimus.jpg",
         attendanceRate: {
             plenary: 98.5,
             standing: 96,
@@ -25,6 +25,13 @@ window.app = {
     // Initialize Application
     init: function() {
         console.log('앱 초기화 시작...');
+        
+        // MemberDataManager 초기화
+        if (window.MemberDataManager && typeof window.MemberDataManager.init === 'function') {
+            window.MemberDataManager.init();
+            console.log('MemberDataManager 초기화 완료');
+        }
+        
         this.setupEventListeners();
         this.setupOverlay();
         this.setupAuth();
@@ -70,7 +77,8 @@ window.app = {
         if (menuToggle && sideMenu) {
             console.log('메뉴 토글 이벤트 리스너 추가중...');
             
-            menuToggle.addEventListener('click', (e) => {
+            const self = this; // this 컨텍스트 저장
+            menuToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('🍔 햄버거 메뉴 클릭됨!');
@@ -80,10 +88,10 @@ window.app = {
                 
                 if (isActive) {
                     console.log('메뉴 닫기 실행');
-                    this.closeSideMenu();
+                    self.closeSideMenu();
                 } else {
                     console.log('메뉴 열기 실행');
-                    this.openSideMenu();
+                    self.openSideMenu();
                 }
             });
             
@@ -98,26 +106,27 @@ window.app = {
         }
         
         // Menu Items
+        const self2 = this;
         document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', (e) => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                const page = item.dataset.page;
+                const page = this.dataset.page;
                 console.log('메뉴 아이템 클릭:', page);
                 if (page) {
-                    this.navigateTo(page);
-                    this.closeSideMenu();
+                    self2.navigateTo(page);
+                    self2.closeSideMenu();
                 }
             });
         });
         
         // Bottom Navigation
         document.querySelectorAll('.bottom-nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                const page = item.dataset.page;
+                const page = this.dataset.page;
                 console.log('하단 네비 클릭:', page);
                 if (page) {
-                    this.navigateTo(page);
+                    self2.navigateTo(page);
                 }
             });
         });
@@ -193,6 +202,45 @@ window.app = {
         document.body.style.overflow = '';
     },
     
+    // Show Toast Message
+    showToast: function(message, type = 'success') {
+        // 기존 토스트 제거
+        const existingToast = document.querySelector('.toast-message');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // 토스트 생성
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6b7280'};
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        `;
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
+        // 애니메이션
+        setTimeout(() => toast.style.opacity = '1', 10);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    },
+    
     // Navigate to Page
     navigateTo: function(page) {
         console.log('페이지 이동:', page);
@@ -224,18 +272,37 @@ window.app = {
     loadPage: function(page) {
         console.log('페이지 로딩:', page);
         
+        // 캐시 클리어를 위한 타임스탬프 추가
+        const timestamp = Date.now();
+        
         switch (page) {
             case 'home':
+                // 캐시 버스팅을 위해 직접 호출
+                console.log('홈페이지 로딩 - 타임스탬프:', timestamp);
                 this.loadHomePage();
                 break;
             case 'digital-id':
-                this.loadDigitalIdPage();
+                // 모바일 최적화 버전 사용
+                if (window.app.loadDigitalIdMobileOptimized) {
+                    this.loadDigitalIdMobileOptimized();
+                } else {
+                    this.loadDigitalIdPage();
+                }
                 break;
             case 'info':
                 this.loadInfoPage();
                 break;
+            case 'member-profile':
+                this.loadMemberProfilePage();
+                break;
             case 'attendance':
                 this.loadAttendancePage();
+                // 캘린더 초기화
+                setTimeout(() => {
+                    if (window.AttendanceCalendar) {
+                        window.AttendanceCalendar.init();
+                    }
+                }, 100);
                 break;
             case 'bill':
                 this.loadBillPage();
@@ -259,7 +326,13 @@ window.app = {
                 this.loadStaffDirectoryPage();
                 break;
             case 'location-tracking':
-                this.loadLocationTrackingPage();
+                // 새로운 블록체인 기반 위치 활동 페이지 사용
+                if (typeof window.app.loadLocationActivitiesPage === 'function') {
+                    this.loadLocationActivitiesPage();
+                } else {
+                    // 기존 페이지로 폴백
+                    this.loadLocationTrackingPage();
+                }
                 break;
             case 'report':
                 this.loadReportPage();
@@ -268,7 +341,13 @@ window.app = {
                 this.loadSettingsPage();
                 break;
             case 'profile':
-                this.loadInfoPage(); // 프로필과 정보 페이지를 같게 처리
+                // member-profile-page.js의 loadMemberProfilePage 함수 호출
+                if (typeof this.loadMemberProfilePage === 'function') {
+                    this.loadMemberProfilePage();
+                } else {
+                    console.error('loadMemberProfilePage 함수를 찾을 수 없습니다. member-profile-page.js가 로드되었는지 확인하세요.');
+                    this.loadInfoPage(); // 폴백으로 정보 페이지 표시
+                }
                 break;
             default:
                 this.loadHomePage();
@@ -285,5 +364,112 @@ window.app = {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM 로드 완료 - 앱 초기화 시작');
+    
+    // 초기화 전 상태 확인
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    console.log('초기화 전 - 메뉴 토글 버튼:', menuToggle);
+    console.log('초기화 전 - 사이드 메뉴:', sideMenu);
+    
+    // Show Member Details - Display member info popup when photo is clicked
+    window.app.showMemberDetails = function() {
+        const memberData = this.memberData;
+        
+        this.showModal('memberDetailsModal', {
+            title: '의원 상세정보',
+            content: `
+                <div class="space-y-4">
+                    <!-- Member Photo and Basic Info -->
+                    <div class="flex items-center gap-4 pb-4 border-b">
+                        <img src="${memberData.photo}" alt="${memberData.name}" 
+                             class="w-24 h-24 rounded-lg object-cover border-2 border-gray-200">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">${memberData.name}</h3>
+                            <p class="text-sm text-gray-600">${memberData.party}</p>
+                            <p class="text-sm text-gray-600">${memberData.district}</p>
+                            <div class="flex gap-2 mt-2">
+                                <span class="gov-badge gov-badge-active text-xs">재직중</span>
+                                <span class="gov-badge text-xs">${memberData.term}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Information -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                            <span class="text-sm text-gray-600">의원번호</span>
+                            <span class="text-sm font-medium text-gray-900">${memberData.memberId}</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                            <span class="text-sm text-gray-600">소속 위원회</span>
+                            <span class="text-sm font-medium text-gray-900">${memberData.committees.join(', ')}</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                            <span class="text-sm text-gray-600">회기</span>
+                            <span class="text-sm font-medium text-gray-900">${memberData.generation}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Activity Stats -->
+                    <div class="grid grid-cols-2 gap-3 pt-3">
+                        <div class="bg-blue-50 rounded-lg p-3 text-center cursor-pointer hover:bg-blue-100 transition" 
+                             onclick="app.navigateTo('attendance'); app.closeModal();">
+                            <div class="text-2xl font-bold text-blue-600">${memberData.attendanceRate.plenary}%</div>
+                            <div class="text-xs text-gray-600">본회의 출석률</div>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-3 text-center cursor-pointer hover:bg-green-100 transition" 
+                             onclick="app.navigateTo('bill'); app.closeModal();">
+                            <div class="text-2xl font-bold text-green-600">${memberData.bills}건</div>
+                            <div class="text-xs text-gray-600">발의 법안</div>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-3 text-center cursor-pointer hover:bg-purple-100 transition" 
+                             onclick="app.navigateTo('speech'); app.closeModal();">
+                            <div class="text-2xl font-bold text-purple-600">${memberData.speeches}회</div>
+                            <div class="text-xs text-gray-600">본회의 발언</div>
+                        </div>
+                        <div class="bg-orange-50 rounded-lg p-3 text-center cursor-pointer hover:bg-orange-100 transition" 
+                             onclick="app.navigateTo('civil'); app.closeModal();">
+                            <div class="text-2xl font-bold text-orange-600">${memberData.civilComplaints}건</div>
+                            <div class="text-xs text-gray-600">민원 처리</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="grid grid-cols-2 gap-2 pt-3">
+                        <button onclick="app.navigateTo('info'); app.closeModal();" 
+                                class="bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+                            <i class="fas fa-user mr-2"></i>전체 프로필
+                        </button>
+                        <button onclick="app.navigateTo('digital-id'); app.closeModal();" 
+                                class="bg-gray-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-700 transition">
+                            <i class="fas fa-id-card mr-2"></i>디지털 신분증
+                        </button>
+                    </div>
+                </div>
+            `,
+            buttons: [
+                {
+                    text: '닫기',
+                    class: 'bg-gray-500 text-white',
+                    onclick: 'app.closeModal()'
+                }
+            ]
+        });
+    };
+    
+    // 초기화 실행
     window.app.init();
+
+    // 함수 등록 확인
+    console.log('함수 등록 상태:');
+    console.log('- showActivityDetail:', typeof window.app.showActivityDetail);
+    console.log('- showPressReleases:', typeof window.app.showPressReleases);
+    console.log('- showSchedule:', typeof window.app.showSchedule);
+    console.log('- showMeetings:', typeof window.app.showMeetings);
+    console.log('- showStatistics:', typeof window.app.showStatistics);
+    console.log('- showQuickContacts:', typeof window.app.showQuickContacts);
+    console.log('- showAllActivities:', typeof window.app.showAllActivities);
+    console.log('- showCommitteeInfo:', typeof window.app.showCommitteeInfo);
+    console.log('- showPerformanceReport:', typeof window.app.showPerformanceReport);
+    console.log('- showMemberDetails:', typeof window.app.showMemberDetails);
 });

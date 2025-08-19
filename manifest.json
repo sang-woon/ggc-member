@@ -1,0 +1,53 @@
+{
+  "name": "경기도의회 의원 의정활동 관리시스템",
+  "short_name": "경기도의회",
+  "description": "경기도의회 의원을 위한 의정활동 관리 및 업무 효율성 향상 앱",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#003d7a",
+  "orientation": "portrait",
+  "lang": "ko",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["government", "productivity", "business"],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "디지털 의원증",
+      "short_name": "의원증",
+      "description": "디지털 의원증 바로 확인",
+      "url": "/?page=digital-id",
+      "icons": [{ "src": "images/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "출석 현황",
+      "short_name": "출석",
+      "description": "출석 현황 바로 확인",
+      "url": "/?page=attendance",
+      "icons": [{ "src": "images/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "민원 처리",
+      "short_name": "민원",
+      "description": "민원 처리 현황 확인",
+      "url": "/?page=civil-complaint",
+      "icons": [{ "src": "images/logo.png", "sizes": "192x192" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+ggcmember",
+      "url": "/?protocol=%s"
+    }
+  ]
+}

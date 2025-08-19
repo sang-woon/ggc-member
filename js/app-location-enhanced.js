@@ -326,7 +326,7 @@ Object.assign(window.app, {
             const statusIcon = activity.gpsVerified ? 'fa-check-circle' : 'fa-exclamation-triangle';
 
             return `
-                <div class="activity-item border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="app.showActivityDetail('${activity.id}')">
+                <div class="activity-item border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="app.showLocationActivityDetail('${activity.id}')">
                     <div class="flex items-start justify-between">
                         <div class="flex-1">
                             <div class="flex items-center gap-2 mb-2">
@@ -613,8 +613,8 @@ Object.assign(window.app, {
         }, 1500);
     },
 
-    // 활동 상세 보기
-    showActivityDetail: function(activityId) {
+    // 위치 기반 활동 상세 보기 (이름 변경: showActivityDetail -> showLocationActivityDetail)
+    showLocationActivityDetail: function(activityId) {
         const activity = this.locationData.recentActivities.find(a => a.id === activityId);
         if (!activity) return;
 

@@ -1,0 +1,189 @@
+/* Enhanced Member Card Styles for Mobile */
+
+/* Member Photo Container */
+.member-photo-container {
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    transform-style: preserve-3d;
+}
+
+.member-photo-container:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
+}
+
+.member-photo-container:active {
+    transform: scale(0.98);
+}
+
+/* Member Photo Enhanced */
+.member-photo-enhanced {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.member-photo-enhanced:active {
+    transform: scale(0.95);
+}
+
+.member-photo-enhanced:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15) !important;
+}
+
+/* Mobile Touch Optimization */
+@media (max-width: 430px) {
+    /* Ensure minimum touch target size */
+    .member-photo-enhanced {
+        min-width: 80px;
+        min-height: 80px;
+    }
+    
+    /* Quick stats touch targets */
+    .gov-card .grid > div[onclick] {
+        min-height: 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.2s ease;
+        border-radius: 8px;
+        padding: 8px 4px;
+    }
+    
+    .gov-card .grid > div[onclick]:active {
+        background-color: rgba(255,255,255,0.1);
+    }
+}
+
+/* Animated Status Indicator */
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+}
+
+.absolute.bg-green-500 {
+    animation: pulse-green 2s infinite;
+}
+
+/* Enhanced Badge Styles */
+.gov-badge {
+    transition: all 0.2s ease;
+}
+
+/* Gradient Background Animation */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gov-card[style*="linear-gradient"] {
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+}
+
+/* Modal Member Details Styling */
+#memberDetailsModal .bg-blue-50,
+#memberDetailsModal .bg-green-50,
+#memberDetailsModal .bg-purple-50,
+#memberDetailsModal .bg-orange-50 {
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+#memberDetailsModal .bg-blue-50:hover::before,
+#memberDetailsModal .bg-green-50:hover::before,
+#memberDetailsModal .bg-purple-50:hover::before,
+#memberDetailsModal .bg-orange-50:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.3));
+    pointer-events: none;
+}
+
+/* Responsive Typography */
+@media (max-width: 375px) {
+    .gov-card h2 {
+        font-size: 1rem;
+    }
+    
+    .gov-card .text-sm {
+        font-size: 0.8125rem;
+    }
+    
+    .gov-card .text-xs {
+        font-size: 0.6875rem;
+    }
+}
+
+/* Smooth Scrolling for Modal */
+.modal-content {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Touch Feedback for Buttons */
+button[onclick]:active,
+.cursor-pointer:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+}
+
+/* Accessibility Improvements */
+.member-photo-enhanced:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+}
+
+[onclick]:focus-visible {
+    outline: 2px solid #003d7a;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Performance Optimization */
+.member-photo-enhanced img {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Loading State for Images */
+.member-photo-enhanced img {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+.member-photo-enhanced img[src] {
+    animation: none;
+    background: none;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
